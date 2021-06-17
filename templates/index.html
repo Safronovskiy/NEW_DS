@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" id="hhh">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '5.css' %}">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="answer-wrapper">
+            <input type="button" value="Сохранить Конспект" id="save_cons">
+            <input type="button" value="Скачать Конспект" id="get_cons">
+            <input type="button" value="Посмотреть Конспекты" id="show_cons">
+        </div>
+        <div class="question-wrapper">
+            <nav>
+                <ul>
+                    <li>Математика</li>
+                    <li>Программирование</li>
+                    <li>Физкультура</li>
+                    <li>Арт</li>
+                    <li>Скульптура</li>
+                    <li>Танцы</li>
+                    <li>Пение</li>
+                    <li>Музыка</li>
+                    <li>Прогулки</li>
+                    <li>Игра</li>
+                </ul>
+            </nav>
+            <section class="questions" id="question">
+                <h3 class="questions_title">Выбери подходящий для своего конспекта вариант :</h3>
+                {% for subject in subjects %}
+                <div class="questions_block" id="block_1"><h4 class="title_topic">{{ subject.name }}</h4>
+
+                    {% for answer in subject.answermodel_set.all %}
+                    <label class="options"><input type='checkbox' name="{{ subject }}" value="{{ answer.text }}"> {{ answer }} </label>
+
+                    {% endfor %}
+                    <textarea placeholder="Свой вариант "></textarea><button>ok</button>
+                </div>
+                {% endfor %}
+            </section>
+            <section class="total" id="total">
+                <h3 class="total_title">Результат :</h3>
+                <div id="total_list"></div>
+            </section>
+        </div>
+    </div>
+    <script src="{% static '6.js' %}"></script>
+</body>
+</html>

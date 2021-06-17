@@ -1,0 +1,17 @@
+div.block-content{
+    background-image: url("img/unnamed.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80%;
+    width: 80%;
+}
+footer{
+    color: #FFFFFF;
+    background: #4C85FF;
+    font-size: 20px;
+    font-family: Montserrat;
+}
+footer div{
+    margin: 5px;
+}
+

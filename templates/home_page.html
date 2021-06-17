@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '5.css' %}">
+    <link rel="stylesheet" href="{% static '7.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="answer-wrapper">
+            <input type="button" value="Сохранить Конспект" id="save_cons">
+            <input type="button" value="Скачать Конспект" id="get_cons">
+            <input type="button" value="Посмотреть Конспекты" id="show_cons">
+            <input type="button" value="Сформировать конспект" id="show_cons2">
+            <input type="button" value="Войти" id="show_cons1">
+    </div>
+    <div class="block-content">
+    {% block content %}
+    {% endblock %}
+    </div>
+    <footer>
+        <div>Контакты</div>
+        <div>О сайте</div>
+        <div>Детское учреждение "Сад"</div>
+    </footer>
+</div>
+</body>
+</html>
