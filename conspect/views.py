@@ -24,6 +24,7 @@ class LessonView(APIView):
 @login_required
 def lessons(request):
 
-    subjects = SubjectModel.objects.all()
+    # subjects = SubjectModel.objects.all()
+    subjects = StructureComponentModel.objects.all()
     context = {'subjects': subjects}
     return render(request, 'index.html', context)
