@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework.views import Response, APIView
 from .models import *
 from .serializers import *
-# Create your views here.
+
 
 
 class LessonView(APIView):
@@ -20,7 +21,9 @@ class LessonView(APIView):
         return HttpResponse(status=201)
 
 
+@login_required
 def lessons(request):
-    objects = SubjectModel.objects.all()
-    context = {'subjects': objects}
+
+    subjects = SubjectModel.objects.all()
+    context = {'subjects': subjects}
     return render(request, 'index.html', context)

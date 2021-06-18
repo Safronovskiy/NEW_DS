@@ -18,16 +18,11 @@
         <div class="question-wrapper">
             <nav>
                 <ul>
-                    <li>Математика</li>
-                    <li>Программирование</li>
                     <li>Физкультура</li>
-                    <li>Арт</li>
-                    <li>Скульптура</li>
-                    <li>Танцы</li>
-                    <li>Пение</li>
-                    <li>Музыка</li>
-                    <li>Прогулки</li>
-                    <li>Игра</li>
+                    {% for subj in subjects %}
+                        <li><a href="">{{subj}}</a></li>
+                    {% endfor %}
+
                 </ul>
             </nav>
             <section class="questions" id="question">
@@ -35,9 +30,12 @@
                 {% for subject in subjects %}
                 <div class="questions_block" id="block_1"><h4 class="title_topic">{{ subject.name }}</h4>
 
-                    {% for answer in subject.answermodel_set.all %}
-                    <label class="options"><input type='checkbox' name="{{ subject }}" value="{{ answer.text }}"> {{ answer }} </label>
+                    {% for component in subject.structure_components.all %}
+                        <label class="options"><input type='checkbox' name="{{ component }}" value="{{ component.name }}"> {{ component }} </label>
+                        {% for answer in component.answers.all %}
+                        <label class="options"><input type='checkbox' name="{{answer}}" value="{{ answer.name }}"> {{ answer }} </label>
 
+                        {% endfor %}
                     {% endfor %}
                     <textarea placeholder="Свой вариант "></textarea><button>ok</button>
                 </div>
@@ -52,3 +50,4 @@
     <script src="{% static '6.js' %}"></script>
 </body>
 </html>
+

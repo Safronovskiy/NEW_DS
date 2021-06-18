@@ -10,11 +10,23 @@
 <body>
 <div class="container">
     <div class="answer-wrapper">
-            <input type="button" value="Сохранить Конспект" id="save_cons">
+
             <input type="button" value="Скачать Конспект" id="get_cons">
             <input type="button" value="Посмотреть Конспекты" id="show_cons">
             <input type="button" value="Сформировать конспект" id="show_cons2">
-            <input type="button" value="Войти" id="show_cons1">
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method="GET">
+                    <input type="submit" value="Выйти" id="show_cons3">
+                </form>
+                 <input type="button" value="Hello, {{request.user}}!" id="show_cons4">
+            {% else %}
+                <form action="{% url 'accounts:login' %}" method="GET">
+                    <input type="submit" value="Войти" id="show_cons1">
+                </form>
+            {% endif %}
+
+
     </div>
     <div class="block-content">
     {% block content %}
