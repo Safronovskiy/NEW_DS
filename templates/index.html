@@ -9,19 +9,34 @@
 </head>
 
 <body>
+
     <div class="container">
         <div class="answer-wrapper">
-            <input type="button" value="Сохранить Конспект" id="save_cons">
+            {% if request.user.is_authenticated and request.user.is_methodist %}
+                <input type="button" value="Сохранить Конспект" id="save_cons">
+            {% endif %}
             <input type="button" value="Скачать Конспект" id="get_cons">
             <input type="button" value="Посмотреть Конспекты" id="show_cons">
+            {% if user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method="GET">
+                    <input type="submit" value="Выйти" id="show_cons3">
+                </form>
+                {% if request.user.is_staff %}
+                    <a href="{% url 'accounts:register' %}"><input type="button" value="Зарегистрировать пользователя" id="show_cons4"></a>
+                {% endif %}
+            {% else %}
+                <form action="{% url 'accounts:login' %}" method="GET">
+                    <input type="submit" value="Войти" id="show_cons1">
+                </form>
+            {% endif %}
         </div>
+        {% block content %}
         <div class="question-wrapper">
             <nav>
                 <ul>
-                    <li>Математика</li>
-                    <li>Программирование</li>
-                    <li>Физкультура</li>
-
+                    {% for item in subj %}
+                    <li><a href="{% url 'conspect:detail_lesson' item.pk %}">{{item}}</a></li>
+                    {% endfor %}
                 </ul>
             </nav>
             <section class="questions" id="question">
@@ -32,7 +47,7 @@
                     {% for answer in subject.answers.all %}
                         <label class="options"><input type='checkbox' name="{{ subject }}" value="{{ answer.text }}"> {{ answer }} </label>
                     {% endfor %}
-                    <textarea placeholder="Свой вариант "></textarea><button>ok</button>
+                    <label class="options"><textarea placeholder="Свой вариант "></textarea><button>ok</button></label>
                 </div>
                 {% endfor %}
             </section>
@@ -41,7 +56,12 @@
                 <div id="total_list"></div>
             </section>
         </div>
+        {% endblock %}
     </div>
+
     <script src="{% static '6.js' %}"></script>
 </body>
 </html>
+
+
+

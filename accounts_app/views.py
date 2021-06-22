@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from .models import CustomUserModel
 from .forms import CustomUserForm
-
+from .forms import CustomUserRegisterForm
 
 
 
@@ -24,6 +24,14 @@ def logout_view(request):
     return render(request, 'logout.html', {})
 
 
+def user_register_view(request):
+    if request.method == 'POST':
+        form = CustomUserRegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:register')
+    form = CustomUserRegisterForm()
+    return render(request, 'registration.html', {'form': form, })
 
 
 

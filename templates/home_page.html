@@ -11,9 +11,11 @@
 <div class="container">
     <div class="answer-wrapper">
 
-            <input type="button" value="Скачать Конспект" id="get_cons">
             <input type="button" value="Посмотреть Конспекты" id="show_cons">
-            <input type="button" value="Сформировать конспект" id="show_cons2">
+
+            <form action="{% url 'conspect:lessons_tmp' %}" method="GET">
+                <input type="submit" value="Сформировать конспект" id="show_cons2">
+            </form>
 
             {% if user.is_authenticated %}
                 <form action="{% url 'accounts:logout' %}" method="GET">
