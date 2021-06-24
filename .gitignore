@@ -1,3 +1,14 @@
+db.sqlite3
+
 /conspect/migrations/*.py
 !/conspect/migrations/__init__.py
-db.sqlite3
+
+/accounts_app/migrations/*.py
+!/accounts_app/migrations/__init__.py
+
+
+
+
+
+
+

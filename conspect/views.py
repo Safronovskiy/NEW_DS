@@ -7,31 +7,13 @@ from .serializers import *
 
 
 
-# class LessonView(APIView):
-#
-#     def get(self, request):
-#         objects = LessonModel.objects.all()
-#         serializer = LessonSerializer(objects, many=True)
-#         return Response(serializer.data)
-#
-#     def post(self, request):
-#         print(request.POST)
-#         serializer = LessonSerializer(data=request.data)
-#         serializer.create_json()
-#         return HttpResponse(status=201)
-
 
 @login_required
-def lessons(request):
-
-    subjects = StructureComponentModel.objects.all()
-    context = {'subj': subjects}
-    return render(request, 'index.html', context)
-
-
-def detail_lesson(request, pk):
-    subj = StructureComponentModel.objects.all()
+def detail_lesson(request, pk=None):
+    if pk:
+        subjects = StructureComponentModel.objects.filter(subject=pk)
     subjects = StructureComponentModel.objects.filter(subject=pk)
-    context = {'subjects': subjects, 'subj':subj}
+    subj = SubjectModel.objects.all()
+    context = {'subjects':subjects, 'subj':subj}
     return render(request, 'index.html', context)
 

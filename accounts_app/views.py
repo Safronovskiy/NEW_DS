@@ -11,7 +11,7 @@ def login_view(request):
         form = CustomUserForm(data=request.POST)
         if form.is_valid():
             login(request, form.user_cache)
-            return redirect('conspect:lessons_tmp')
+            return redirect('conspect:home')
     form = CustomUserForm()
     return render(request, 'login.html', {'form': form,
                                           })
