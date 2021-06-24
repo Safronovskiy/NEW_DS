@@ -6,9 +6,5 @@ db.sqlite3
 /accounts_app/migrations/*.py
 !/accounts_app/migrations/__init__.py
 
-
-
-
-
-
-
+/api/migrations/*.py
+!/api/migrations/__init__.py

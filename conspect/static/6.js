@@ -51,8 +51,12 @@ function fn1(e) {
 // сохранить конспект
 let save_cons = document.querySelector('#save_cons')
 save_cons.addEventListener('click', fn2)
+
+//let obj = {
+//    subjects: []
+//}
 let obj = {
-    subjects: []
+    answers: []
 }
 
 function fn2(e) {
@@ -66,7 +70,9 @@ function fn2(e) {
         }
         console.log(i.querySelectorAll('p'))
         obj.subjects.push(name)
+
     }
+
     console.log(obj)
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -86,7 +92,7 @@ async function postData(url = '', data = {}) {
   return await response.json(); // parses JSON response into native JavaScript objects
 }
 
-postData('http://127.0.0.1:8000/', obj)
+postData('http://127.0.0.1:8000/api/save_conspect/', obj)
     .then((data) => {
     console.log(data); // JSON data parsed by `response.json()` call
     });
