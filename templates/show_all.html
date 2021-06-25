@@ -13,12 +13,12 @@
 
 
 
-<table border="1px solid black">
+<table border="2px solid black" cellpadding="5px">
 
 
   {% for item in conspects %}
     <tr><td></td><td></td><td></td></tr>
-    <tr><td><a href="{% url 'conspect:show_consp' item.id %}">{{item.name}}</a></td>{{item.owner}}<td></td>{{item.date_created}}<td></td></tr>
+    <tr><td></td><td><a href="{% url 'conspect:show_consp' item.id %}">{{item.name}}</a></td><td>{{item.owner}}</td><td>{{item.date_created}}</td></tr>
   {% endfor %}
 
 </table>
