@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'corsheaders',
     # 'corsheaders',
     'conspect',
     'accounts_app',
@@ -59,7 +60,9 @@ MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 
+
 )
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'det_sad.urls'
 
 TEMPLATES = [

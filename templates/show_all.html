@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<ul>
+  {% for item in conspects %}
+  <li><a href="{% url 'conspect:show_consp' item.id %}">{{item.name}} by {{item.owner}}; created - {{item.date_created}}</a></li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}

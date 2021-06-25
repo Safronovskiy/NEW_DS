@@ -12,11 +12,15 @@
 
     <div class="container">
         <div class="answer-wrapper">
+
             {% if request.user.is_authenticated and request.user.is_methodist %}
                 <input type="button" value="Сохранить Конспект" id="save_cons">
             {% endif %}
+
             <input type="button" value="Скачать Конспект" id="get_cons">
-            <input type="button" value="Посмотреть Конспекты" id="show_cons">
+
+            <a href="{% url 'conspect:show_all' %}"><input type="button" value="Посмотреть Конспекты" id="show_cons"></a>
+
             {% if user.is_authenticated %}
                 <form action="{% url 'accounts:logout' %}" method="GET">
                     <input type="submit" value="Выйти" id="show_cons3">
@@ -45,7 +49,7 @@
                 <div class="questions_block" id="block_1"><h4 class="title_topic">{{ subject.name }}</h4>
 
                     {% for answer in subject.answers.all %}
-                        <label class="options"><input type='checkbox' name="{{ subject }}" value="{{ answer.text }}"> {{ answer }} </label>
+                        <label class="options"><input type='checkbox' name="{{ subject }}" value="{{ answer.content }}" index = "{{ answer.id }}"> {{ answer }} </label>
                     {% endfor %}
                     <label class="options"><textarea placeholder="Свой вариант "></textarea><button>ok</button></label>
                 </div>

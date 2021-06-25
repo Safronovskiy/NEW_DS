@@ -3,7 +3,7 @@ from django.db.models import *
 
 
 class SubjectModel(Model):
-    name = CharField(max_length=255, verbose_name='Название')
+    name = CharField(max_length=255, verbose_name='Название предмета')
 
     class Meta:
         verbose_name = 'Предмет'
@@ -17,7 +17,7 @@ class SubjectModel(Model):
 class StructureComponentModel(Model):
     subject = ForeignKey(SubjectModel, on_delete=CASCADE,
                          verbose_name='Предмет', related_name='structure_components')
-    name = CharField(max_length=255, verbose_name='Название')
+    name = CharField(max_length=255, verbose_name='Название ')
 
     class Meta:
         verbose_name = 'Структурный компонент'
