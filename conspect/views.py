@@ -1,9 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from rest_framework.views import Response, APIView
-from .models import *
-from .serializers import *
 from .forms import *
 
 
@@ -19,10 +15,10 @@ def detail_lesson(request, pk=None):
 
 def show_allconsp_view(request, pk=None):
     if pk:
-        conspect = get_object_or_404(ConspectModel, pk=pk)
-
-        return render(request, 'show_consp.html', {'conspect': conspect,
-                                                   'components':components})
+        answers = AnswerModel.objects.filter(conspects=pk)
+        comps = StructureComponentModel.objects.filter(answers__in=answers).distinct()
+        return render(request, 'show_consp.html', {'answers': answers,
+                                                   'components':comps})
 
     conspects = ConspectModel.objects.all()
     return render(request, 'show_all.html', {'conspects': conspects})

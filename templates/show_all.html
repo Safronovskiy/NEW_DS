@@ -5,11 +5,22 @@
 
 {% block content %}
 
-<ul>
-  {% for item in conspects %}
-  <li><a href="{% url 'conspect:show_consp' item.id %}">{{item.name}} by {{item.owner}}; created - {{item.date_created}}</a></li>
-  {% endfor %}
-</ul>
+<!--<ul>-->
+<!--  {% for item in conspects %}-->
+<!--  <li><a href="{% url 'conspect:show_consp' item.id %}">{{item.name}} by {{item.owner}}; created - {{item.date_created}}</a></li>-->
+<!--  {% endfor %}-->
+<!--</ul>-->
 
+
+
+<table border="1px solid black">
+
+
+  {% for item in conspects %}
+    <tr><td></td><td></td><td></td></tr>
+    <tr><td><a href="{% url 'conspect:show_consp' item.id %}">{{item.name}}</a></td>{{item.owner}}<td></td>{{item.date_created}}<td></td></tr>
+  {% endfor %}
+
+</table>
 
 {% endblock %}

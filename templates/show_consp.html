@@ -5,9 +5,20 @@
 
 {% block content %}
 
-
   <ul>
-    <li>{{conspect}}</li>
+    {% for component in components %}
+      <li>{{ component }}</li>
+    <br>
+      {% for item in answers %}
+
+        {% if item.structure_component == component %}
+            <li>{{item}}</li>
+        {%  endif %}
+
+      {% endfor %}
+    <br>
+    {% endfor %}
+    <br>
   </ul>
 
 
