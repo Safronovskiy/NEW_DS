@@ -11,7 +11,7 @@
 <div class="container">
     <div class="answer-wrapper">
 
-            <input type="button" value="Посмотреть Конспекты" id="show_cons">
+        <a href="{% url 'conspect:show_all' %}"><input type="button" value="Посмотреть Конспекты" id="show_cons"></a>
 
             <form action="{% url 'conspect:detail_lesson' %}" method="GET">
                 <input type="submit" value="Сформировать конспект" id="show_cons2">
