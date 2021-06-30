@@ -50,8 +50,9 @@ function fn1(e) {
 
 // сохранить конспект
 // button save cons (Сохранить конспект)
-let save_cons = document.querySelector('#save_cons')
-save_cons.addEventListener('click', fn2)
+//!!!
+// let save_cons = document.querySelector('#save_cons')
+// save_cons.addEventListener('click', fn2)
 
 //let obj = {
 //    subjects: []
@@ -108,9 +109,10 @@ save_cons.addEventListener('click', fn2)
 
 
 
-function getAnswers(){
+function getAnswers(input){
     // template for creation json
     const json = {};
+          json.name = input;
     // get parent (left table)
     const total = document.querySelector('#total');
     // get changed answer's
@@ -129,8 +131,8 @@ function getAnswers(){
 
 
 }
-function fn2(e) {
-    const json = getAnswers()
+function fn2(input) {
+    const json = getAnswers(input)
 
     if(json !== undefined){
         const requestOptions = {
