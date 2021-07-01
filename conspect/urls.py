@@ -17,7 +17,7 @@ urlpatterns = [
     #path('show_conspects/', show_allconsp_view, name='show_all'),
     path('show_details/<int:pk>/', DetailConspectView.as_view(), name='show_details'),
     #path('show_conspect/<int:pk>/', show_allconsp_view, name='show_details'),
-    path('sort_by_user/', SortByUserConspectView.as_view(), name='sort_by_user'),
-    path('sort_by_date/', SortByDateConspectView.as_view(), name='sort_by_date'),
+    path('show_all/sort_by_user/', SortByUserConspectView.as_view(), name='sort_by_user'),
+    path('show_all/sort_by_date/', SortByDateConspectView.as_view(), name='sort_by_date'),
 
 ]

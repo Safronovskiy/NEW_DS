@@ -31,7 +31,7 @@ class ShowAllConspectView(generic.ListView):
     template_name = 'show_all.html'
     model = ConspectModel
     context_object_name = 'conspects'
-    paginate_by = 3
+    paginate_by = 10
 
 
 class DetailConspectView(generic.DetailView, LoginRequiredMixin):
@@ -55,25 +55,55 @@ class SortByUserConspectView(generic.ListView):
     model = ConspectModel
     context_object_name = 'conspects'
     paginate_by = 10
+    ordering = 'owner'
 
 
     def get_queryset(self):
         return ConspectModel.objects.filter(owner=self.request.user)
 
 
+    def post(self, request, *args, **kwargs):
+
+        if self.__class__.ordering == 'owner':
+            self.__class__.ordering = '-owner'
+            return redirect('conspect:sort_by_user')
+
+        elif self.__class__.ordering == '-owner':
+            self.__class__.ordering = 'owner'
+            return redirect('conspect:sort_by_user')
+
+
+
 class SortByDateConspectView(generic.ListView):
+
     template_name = 'show_all.html'
     model = ConspectModel
     context_object_name = 'conspects'
-    paginate_by = 5
+    paginate_by = 10
+    ordering = 'date_created'
+    # or_= 'date_created'
+
+    def post(self, request, *args, **kwargs):
+        """ method was added for sorting objects by date """
+
+        if self.__class__.ordering == 'date_created':
+            self.__class__.ordering = '-date_created'
+            return redirect('conspect:sort_by_date')
+
+        elif self.__class__.ordering == '-date_created':
+            self.__class__.ordering = 'date_created'
+            return redirect('conspect:sort_by_date')
+
 
     # def get_ordering(self):
-    #     # ordering = self.request.GET.get('ordering', '-date_created')
-    #
-    #     if self.get_ordering.ordering:
-    #
-    #     self.get_ordering.order = ordering
-    #     return ordering
+
+    #     if self.__class__.or_ == 'date_created':
+    #         self.__class__.or_ = '-date_created'
+    #         return self.__class__.or_
+
+    #     elif self.__class__.or_ == '-date_created':
+    #         self.__class__.or_ = 'date_created'
+    #         return self.__class__.or_
 
 
 

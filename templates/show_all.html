@@ -40,9 +40,28 @@
 
 
 <table class="conspect_all" >
-  <tr><td><a href="">Название конспекта</a></td><td><a href="">Автор</a></td><td><a href="{% url 'conspect:sort_by_date' %}">Дата создания</a></td></tr>
-  {% for item in conspects %}
+  <tr><td>
+        <p>Название конспекта</p>
+     </td>
+      <td>
 
+        <p>Автор</p>
+          <form action="{% url 'conspect:sort_by_user' %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" value="sort by user">
+          </form>
+      </td>
+      <td>
+          <p>Дата создания</p>
+          <form action="{% url 'conspect:sort_by_date' %}" method="POST">
+              {% csrf_token %}
+              <a href=""><input type="submit" value="Sort by date"></a>
+<!--              <a href="{% url 'conspect:sort_by_date' %}">Дата создания</a>-->
+          </form>
+      </td>
+  </tr>
+
+  {% for item in conspects %}
     <tr><td><a href="{% url 'conspect:show_details' item.id %}">{{item.name}}</a></td><td>{{item.owner}}</td><td>{{item.date_created}}</td></tr>
   {% endfor %}
 
