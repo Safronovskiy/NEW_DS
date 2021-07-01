@@ -3,43 +3,58 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from .forms import *
+from django.urls import reverse_lazy
 
 
+class ConspectCreationView(generic.ListView):
+    """ Renders page of conspect compilation """
 
-@login_required
-def detail_lesson(request, pk=None):
-    subjects = StructureComponentModel.objects.filter(subject=pk)
-    subj = SubjectModel.objects.all()
-    return render(request, 'index.html', {'subjects':subjects,
-                                          'subj':subj})
-
-
-def show_allconsp_view(request, pk=None):
-    if pk:
-        answers = AnswerModel.objects.filter(conspects=pk)
-        comps = StructureComponentModel.objects.filter(answers__in=answers).distinct()
-        return render(request, 'show_consp.html', {'answers': answers,
-                                                   'components':comps})
-
-    conspects = ConspectModel.objects.all()
-    return render(request, 'show_all.html', {'conspects': conspects})
+    template_name = 'index2.html'
+    model = SubjectModel
+    context_object_name = 'subj'
 
 
-class ShowAllConspectView(generic.ListView):
-    """It shows all conspect objects on page"""
+class ConspectCreationDetailView(generic.DetailView):
+    """ Renders page of conspect compilation """
+
+    template_name = 'index2.html'
+    model = StructureComponentModel
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.object = self.get_object()
+        pk = self.object.pk
+        context['subj'] = SubjectModel.objects.all()
+        context['subjects'] = StructureComponentModel.objects.filter(subject=pk)
+        return context
+
+
+class ShowSavedConspectsView(generic.ListView):
+    """It shows all saved conspect objects on page"""
 
     template_name = 'show_all.html'
     model = ConspectModel
     context_object_name = 'conspects'
     paginate_by = 10
+    ordering = '-date_created'
+
+    def post(self, request, *args, **kwargs):
+        """ method was added for sorting objects by date when pressing the button on page """
+
+        if self.__class__.ordering == 'date_created':
+            self.__class__.ordering = '-date_created'
+            return redirect('conspect:show_all')
+
+        elif self.__class__.ordering == '-date_created':
+            self.__class__.ordering = 'date_created'
+            return redirect('conspect:show_all')
 
 
-class DetailConspectView(generic.DetailView, LoginRequiredMixin):
+class DetailConspectView(generic.DetailView):
     """It shows detail information about conspect object"""
 
     model = ConspectModel
     template_name = 'show_detail.html'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,18 +64,25 @@ class DetailConspectView(generic.DetailView, LoginRequiredMixin):
         context['components'] = StructureComponentModel.objects.filter(answers__in=answers).distinct()
         return context
 
+class DeleteConspectView(LoginRequiredMixin, generic.DeleteView):
+    model = ConspectModel
+    template_name = 'delete_confirmation.html'
+    success_url = reverse_lazy('conspect:show_all')
+
+
+
+
 
 class SortByUserConspectView(generic.ListView):
+    """ Скорее всего нужно удалить вью, т.к. не нужна """
     template_name = 'show_all.html'
     model = ConspectModel
     context_object_name = 'conspects'
     paginate_by = 10
     ordering = 'owner'
 
-
     def get_queryset(self):
         return ConspectModel.objects.filter(owner=self.request.user)
-
 
     def post(self, request, *args, **kwargs):
 
@@ -73,39 +95,33 @@ class SortByUserConspectView(generic.ListView):
             return redirect('conspect:sort_by_user')
 
 
-
-class SortByDateConspectView(generic.ListView):
-
-    template_name = 'show_all.html'
-    model = ConspectModel
-    context_object_name = 'conspects'
-    paginate_by = 10
-    ordering = 'date_created'
-    # or_= 'date_created'
-
-    def post(self, request, *args, **kwargs):
-        """ method was added for sorting objects by date """
-
-        if self.__class__.ordering == 'date_created':
-            self.__class__.ordering = '-date_created'
-            return redirect('conspect:sort_by_date')
-
-        elif self.__class__.ordering == '-date_created':
-            self.__class__.ordering = 'date_created'
-            return redirect('conspect:sort_by_date')
+# -------------- FBV ----------------------------------------
 
 
-    # def get_ordering(self):
-
-    #     if self.__class__.or_ == 'date_created':
-    #         self.__class__.or_ = '-date_created'
-    #         return self.__class__.or_
-
-    #     elif self.__class__.or_ == '-date_created':
-    #         self.__class__.or_ = 'date_created'
-    #         return self.__class__.or_
 
 
+
+
+def detail_lesson(request, pk=None):
+    subjects = StructureComponentModel.objects.filter(subject=pk)
+    subj = SubjectModel.objects.all()
+    return render(request, 'index.html', {'subjects':subjects,
+                                          'subj':subj})
+#
+
+#
+# def show_allconsp_view(request, pk=None):
+#     if pk:
+#         answers = AnswerModel.objects.filter(conspects=pk)
+#         comps = StructureComponentModel.objects.filter(answers__in=answers).distinct()
+#         return render(request, 'show_consp.html', {'answers': answers,
+#                                                    'components':comps})
+#
+#     conspects = ConspectModel.objects.all()
+#     return render(request, 'show_all.html', {'conspects': conspects})
+
+
+# ---------------- DO NOT FORGET to override this FBV to CBV !!!----------------------
 
 
 def subject_creation_view(request):

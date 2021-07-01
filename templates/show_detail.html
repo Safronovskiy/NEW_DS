@@ -2,6 +2,29 @@
 {% load static %}
 
 
+{% block nav %}
+<div class="answer-wrapper">
+            <a href="{% url 'conspect:show_all' %}"><input type="button" value="Посмотреть Конспекты" id="show_cons"></a>
+
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method="GET">
+                    <input type="submit" value="Выйти" id="show_cons3">
+                </form>
+                {% if request.user.is_staff %}
+                    <a href="{% url 'accounts:register' %}"><input type="button" value="Зарегистрировать пользователя" id="show_cons4"></a>
+                {% endif %}
+            {% else %}
+                <form action="{% url 'accounts:login' %}" method="GET">
+                    <input type="submit" value="Войти" id="show_cons1">
+                </form>
+            {% endif %}
+        </div>
+
+
+{% endblock %}
+
+
 
 {% block content %}
 

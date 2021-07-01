@@ -11,7 +11,7 @@ class SubjectModel(Model):
         ordering = ('name',)
 
     def __str__(self):
-        return self.name
+        return f'Предмет: {self.name}'
 
 
 class StructureComponentModel(Model):
@@ -24,7 +24,7 @@ class StructureComponentModel(Model):
         verbose_name_plural = 'Структурные компоненты'
 
     def __str__(self):
-        return self.name
+        return f'компонент: {self.name}  -----  относится к {self.subject}'
 
 
 class AnswerModel(Model):
@@ -37,7 +37,7 @@ class AnswerModel(Model):
         verbose_name_plural = 'Варианты'
 
     def __str__(self):
-        return self.content
+        return f'Вариант: {self.content}'
 
 
 
@@ -53,5 +53,5 @@ class ConspectModel(Model):
         ordering = ('date_created',)
 
     def __str__(self):
-        return f'{self.name}, Автор: {self.owner}'
+        return f'Конспект: {self.name} -------Автор: {self.owner} ---------- Дата создания: {self.date_created}'
 
