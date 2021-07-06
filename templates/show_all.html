@@ -33,8 +33,6 @@
 
 {% block content %}
 
-
-
 <table class="conspect_all" >
       <tr><td>
             <p>Название конспекта</p>
@@ -49,11 +47,6 @@
           <td>
               <p>Дата создания</p>
           </td>
-          {% if user.is_authenticated and user.is_methodist %}
-              <td>
-
-              </td>
-          {% endif %}
       </tr>
 
   {% for item in conspects %}
@@ -64,14 +57,6 @@
             <td>
                 {{item.owner}}</td><td>{{item.date_created}}
             </td>
-            {% if request.user.is_authenticated and request.user.is_methodist %}
-
-                <td>
-                    {% if request.user == item.owner %}
-                    <a href="{% url 'conspect:delete_conspect' item.pk %}"><input type="text" value="удалить конспект" id="get_cons1"></a>
-                    {% endif %}
-                </td>
-            {% endif %}
         </tr>
   {% endfor %}
 

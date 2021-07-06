@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" id="hhh">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+
+</head>
+
+<body>
+    <div class="container">
+
+	{% block nav %}
+		<div class="answer-wrapper">
+			<a href="{% url 'conspect:show_all' %}"><input type="button" value="Посмотреть Конспекты" id="show_cons" class="top-btn"></a>
+			<a href="{% url 'conspect:conspect_creation' %}"><input type="button" value="Сформировать конспект" id="get_cons1" class="top-btn"></a>
+
+			{% if request.user.is_authenticated %}
+			<a href="/show_all/sort_by_user/"><input type="button" value="Мои конспекты" id="get_cons2" class="top-btn"></a>
+			{% endif %}
+
+			<form action="/show_all/" method="POST">
+				<a href="/show_all/"><input type="submit" value="Пустая" id="get_cons3" class="top-btn"></a>
+			</form>
+
+			{% if request.user.is_authenticated %}
+			<form action="{% url 'accounts:logout' %}" method="GET">
+				<input type="submit" value="Выйти" id="show_cons3" class="top-btn">
+			</form>
+			{% else %}
+				<a class = 'actions-button' href="#" aria-label="entrance" id="entrance">
+					Войти
+                </a>
+			{% endif %}
+		</div>
+	{% endblock %}
+
+
+
+{% block content %}
+		<table class="conspect_all" >
+			<tbody>
+				<tr>
+					<th>
+						<p>Название конспекта</p>
+					</th>
+					<th class="withBtn">
+						<p>Автор</p>
+						<form action="/show_all/sort_by_user/" method="POST">
+								<input type="hidden" name="csrfmiddlewaretoken" value="IjQ5VtZkyCwmabYA5KKxLM7rfCIbcebtAOiZoNIalhLCAKRoLJnKdGot29tVTxv9">
+								<input type="submit" value="сортировать" id="sort">
+						</form>
+					</th>
+					<th>
+						<p>Дата создания</p>
+					</th>
+				</tr>
+                {% for item in conspects %}
+				<tr>
+					<td>
+							<a href="{% url 'conspect:show_details' item.id %}">{{item.name}}</a>
+					</td>
+					<td>
+							{{item.owner}}</td><td>{{item.date_created}}
+					</td>
+				</tr>
+                {% endfor %}
+			</tbody>
+		</table>
+
+
+		<!-- Пагинация -->
+		<div class="pagination">
+			<span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}"> << </a>
+                    {% endif %}
+				<span class="current">
+					Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+				</span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"> >> </a>
+                    {% endif %}
+			</span>
+		</div>
+    </div>
+{% endblock %}
+	<script src="{% static 'js/homepage_form.js' %}"></script>
+</body>
+</html>
+

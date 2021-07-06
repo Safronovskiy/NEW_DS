@@ -1,5 +1,11 @@
 from rest_framework import serializers
 from conspect.models import ConspectModel, StructureComponentModel, AnswerModel, SubjectModel
+from accounts_app.models import CustomUserModel
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
 
 
 
@@ -31,7 +37,7 @@ class ConspectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConspectModel
-        fields = ('name', 'owner', 'date_created', 'answers')
+        fields = ('id', 'name', 'owner', 'date_created', 'answers')
 
 
 

@@ -6,7 +6,7 @@ app_name = 'conspect'
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home_page.html'), name='home'),
+    path('', TemplateView.as_view(template_name='home_page2.html'), name='home'),
 
     path('conspect_creation/', ConspectCreationView.as_view(), name='conspect_creation'),
     path('conspect_creation/<int:pk>', ConspectCreationDetailView.as_view(), name='conspect_creation'),
@@ -22,9 +22,9 @@ urlpatterns = [
     path('answer_creation/', answer_creation_view, name='answ_creation'),
 
 
-# -------------------- endpoints for FBV ------------------------------
-    path('conspect/', detail_lesson, name='detail_lesson'),
-    path('conspect/<int:pk>', detail_lesson, name='detail_lesson'),
+# -------------------- endpoints for FBV (delete)------------------------------
+#     path('conspect/', detail_lesson, name='detail_lesson'),
+#     path('conspect/<int:pk>', detail_lesson, name='detail_lesson'),
 #path('show_conspects/', show_allconsp_view, name='show_all'),
 #path('show_conspect/<int:pk>/', show_allconsp_view, name='show_details'),
 ]

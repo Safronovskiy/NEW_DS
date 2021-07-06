@@ -1,8 +1,10 @@
-from rest_framework import status
-from rest_framework.decorators import api_view
+from django.contrib.auth import authenticate, login
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from .serializers import ConspectSerializer
+from rest_framework.views import APIView
+from accounts_app.models import CustomUserModel
+from .serializers import ConspectSerializer, LoginSerializer
 from conspect.models import ConspectModel
 
 
@@ -20,33 +22,31 @@ class DetailConspectView(RetrieveAPIView):
 class CreateConspectView(CreateAPIView):
     serializer_class = ConspectSerializer
     queryset = ConspectModel.objects.prefetch_related('answers').all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(owner=request.user)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def perform_create(self, serializer):
+        print(self.request.user, self.request.auth)
+        serializer.save(owner=self.request.user)
 
 
+class LoginView(APIView):
 
-
-
-# ------------------OLD VERSION----------------
-
-@api_view(['GET', 'POST'])
-def save_conspect(request):
-    if request.method == 'POST':
-        serializer = ConspectSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(owner=request.user)
-            return Response(serializer.data, status=200)
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            user = authenticate(request, username = serializer.validated_data.get('username'),
+                                         password = serializer.validated_data.get('password'))
+            login(request, user)
+            return Response(status=200)
         else:
-            return Response(serializer.errors, status=400)
+            return Response(status=400)
 
-    queryset = ConspectModel.objects.all()
-    serializer = ConspectSerializer(queryset, many=True)
-    return Response(serializer.data, status=200)
+    # def get(self, request):
+    #     queryset = CustomUserModel.objects.all()
+    #     serializer = LoginSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+
+
 
 
 

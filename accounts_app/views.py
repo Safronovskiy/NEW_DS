@@ -18,10 +18,10 @@ def login_view(request):
 
 
 def logout_view(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('conspect:home')
-    return render(request, 'logout.html', {})
+
+    logout(request)
+    return redirect('conspect:home')
+
 
 
 def user_register_view(request):

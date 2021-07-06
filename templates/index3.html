@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="{% static '5.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
 </head>
 
 <body>
 
     <div class="container">
-        {% block nav %}
+                {% block nav %}
         <div class="answer-wrapper">
             <a href="{% url 'conspect:show_all' %}"><input type="button" value="Посмотреть Конспекты" id="show_cons"></a>
             {% if request.user.is_authenticated %}
@@ -19,8 +19,6 @@
             {% endif %}
 
             <input type="button" value="Скачать Конспект" id="get_cons">
-
-
 
             {% if user.is_authenticated %}
                 <form action="{% url 'accounts:logout' %}" method="GET">
@@ -32,9 +30,9 @@
                 <a href="{% url 'conspect:answ_creation' %}"><input type="button" value="Добавить вариант" id="get_cons3"></a>
             {% endif %}
 
-                {% if request.user.is_staff %}
-                    <a href="{% url 'accounts:register' %}"><input type="button" value="Зарегистрировать пользователя" id="show_cons4"></a>
-                {% endif %}
+<!--                {% if request.user.is_staff %}-->
+<!--                    <a href="{% url 'accounts:register' %}"><input type="button" value="Зарегистрировать пользователя" id="show_cons4"></a>-->
+<!--                {% endif %}-->
             {% else %}
                 <form action="{% url 'accounts:login' %}" method="GET">
                     <input type="submit" value="Войти" id="show_cons1">
@@ -44,7 +42,7 @@
         {% endblock %}
 
 
-    {% block content %}
+
         <div class="question-wrapper">
             <nav>
                 <ul>
@@ -54,34 +52,44 @@
                 </ul>
             </nav>
 
-            <section class="questions" id="question">
+				<section class="questions" id="question">
                 <h3 class="questions_title">Выбери подходящий для своего конспекта вариант :</h3>
 
+					 <!-- Tempale question -->
                 {% for subject in subjects %}
-                <div class="questions_block" id="block_1"><h4 class="title_topic">{{ subject.name }}</h4>
+                    <div class="question_block" id="block_1">
+                        <h4 class="title_topic">{{ subject.name }}</h4>
+                        <div class="answers">
+                            {% for answer in subject.answers.all %}
+                            <div class="answer" index="{{ answer.id}}">{{answer}}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-                    {% for answer in subject.answers.all %}
-                        <label class="options"><input type='checkbox' name="{{ subject }}" value="" index = "{{ answer.id }}"> {{ answer }} </label>
-                    {% endfor %}
-                    <label class="options"><textarea placeholder="Свой вариант "></textarea><button>ok</button></label>
-                </div>
+
                 {% endfor %}
+
             </section>
-            <section class="total" id="total">
+
+			  <section class="total" id="total">
                 <h3 class="total_title">Результат :</h3>
-                <div id="total_list"></div>
+
+
+					 <!-- template result -->
+<!--					 <div class="total_block" order = '0' id="totalt">-->
+<!--						<h4 class="title_topic">GEOMETRY</h4>-->
+<!--						<div class="results">-->
+<!--						  <div class="result">Деление</div>-->
+<!--					  </div>-->
+<!--				    </div>-->
+
+
+
             </section>
         </div>
-
-
-         <script src="{% static 'app.js' %}"></script>
-         <script src="{% static 'modal.js' %}"></script>
-<!--        <script src="{% static '6.js' %}"></script>-->
-        {% endblock %}
     </div>
 
+	 <script src="{% static 'js/app.js' %}"></script>
+	 <script src="{% static 'js/modal.js' %}"></script>
 </body>
 </html>
-
-
-

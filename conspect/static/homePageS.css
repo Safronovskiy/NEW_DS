@@ -1,0 +1,415 @@
+@charset "UTF-8";
+@font-face {
+  font-family: Montserrat;
+  /* Гарнитура шрифта */
+  src: url(../static/fonts/Montserrat/Montserrat-Bold.ttf);
+  /* Путь к файлу со шрифтом */
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Montserrat;
+  /* Гарнитура шрифта */
+  src: url(../static/fonts/Montserrat/Montserrat-SemiBold.ttf);
+  /* Путь к файлу со шрифтом */
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Montserrat;
+  /* Гарнитура шрифта */
+  src: url(../static/fonts/Montserrat/Montserrat-Regular.ttf);
+  /* Путь к файлу со шрифтом */
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Montserrat;
+  /* Гарнитура шрифта */
+  src: url(../static/fonts/Montserrat/Montserrat-Medium.ttf);
+  /* Путь к файлу со шрифтом */
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Montserrat;
+  /* Гарнитура шрифта */
+  src: url(../static/fonts/Montserrat/Montserrat-Light.ttf);
+  /* Путь к файлу со шрифтом */
+  font-weight: 300;
+  font-style: normal;
+}
+
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 10px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  word-break: break-word;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/*--------------------*/
+.container {
+  height: 100%;
+  width: 100%;
+  background-image: url("img/2.jfif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.container-wrapp {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.actions {
+  border-radius: 12px;
+  padding: 21px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(211, 211, 211, 0.747);
+}
+
+.button-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+}
+
+.actions-button {
+  margin-bottom: 12px;
+  border-radius: 5px;
+  padding: 12px 21px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  text-align: center;
+  color: snow;
+  background: #5e81ff93;
+  -webkit-box-shadow: 0 4px 8px gray;
+          box-shadow: 0 4px 8px gray;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+}
+
+.actions-button:last-child {
+  min-width: 140px;
+}
+
+.actions-button:hover {
+  background: #4C85FF;
+}
+
+/* .actions-button:hover{
+	border-radius: 5px;
+	color: #FFFFFF;
+	background: #4C85FF;
+	box-shadow: 0px 5px 15px rgba(188, 199, 255, 0.75);
+	transition: all 0.3s ease-in;
+} */
+/* @media screen and (max-width: 1160px){
+	.answer-wrapper{
+		 width: 100%;
+		 justify-content: space-around;
+	}
+}
+
+@media screen and (max-width: 625px){
+	.questions{
+		 padding: 10px;
+	}
+	.questions_title, .total_title{
+		 font-size: 20px;
+		 line-height: 22px;
+	}
+	.title_topic{
+		 font-size: 17px;
+	}
+	.answer-wrapper{
+		 flex-direction: column;
+	}
+	.answer-wrapper input{
+		 margin-bottom: 10px;
+	}
+	.answer-wrapper input:last-child{
+		 margin-bottom: 0;
+	}
+} */
+.about {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  border-radius: 12px;
+  padding: 21px;
+  font-size: 20px;
+  font-family: Montserrat;
+  color: #FFFFFF;
+  background: #4c85ff80;
+}
+
+.about-link {
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.about-link:last-child {
+  margin-bottom: 0;
+}
+
+/* Login form style's */
+.container-wrapp.close {
+  opacity: 0;
+}
+
+.form_wrapp.close {
+  opacity: 0;
+}
+
+.form_wrapp {
+  z-index: 120;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.entrance__form.close {
+  -webkit-transform: translateY(30px);
+          transform: translateY(30px);
+  opacity: 0;
+}
+
+.entrance__form {
+  border-radius: 12px;
+  padding: 54px 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  max-width: 450px;
+  min-height: 45vh;
+  /* background:linear-gradient(229.32deg, #6888FF 12.77%, #5E80FF 73.11%); */
+  background: linear-gradient(229.32deg, #6888ff99 12.77%, #5E80FF 73.11%);
+  -webkit-box-shadow: 0px 2px 6px black;
+          box-shadow: 0px 2px 6px black;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.entrance-login, .entrance-password {
+  border-bottom: 3px solid white;
+  padding: 15px;
+  font-size: 23px;
+  color: snow;
+  background-color: transparent;
+  caret-color: snow;
+}
+
+.entrance-login {
+  margin-bottom: 30px;
+}
+
+.entrance-login::-webkit-input-placeholder, .entrance-password::-webkit-input-placeholder {
+  color: snow;
+}
+
+.entrance-login:-ms-input-placeholder, .entrance-password:-ms-input-placeholder {
+  color: snow;
+}
+
+.entrance-login::-ms-input-placeholder, .entrance-password::-ms-input-placeholder {
+  color: snow;
+}
+
+.entrance-login::placeholder, .entrance-password::placeholder {
+  color: snow;
+}
+
+.entrance-password {
+  margin-bottom: 30px;
+}
+
+.entrance-button {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 3px solid snow;
+  padding: 12px 21px;
+  min-width: 140px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  text-align: center;
+  color: snow;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+}
+
+.entrance-button:hover, .entrance-button:focus {
+  background: #a7b1d5;
+}
+
+@media screen and (max-width: 525px) {
+  .actions {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+  }
+  .actions-button {
+    padding: 12px 21px;
+  }
+  .button-wrap .actions-button:first-child {
+    margin-bottom: 15px;
+  }
+  .button-wrap {
+    margin-bottom: 30px;
+  }
+  .entrance__form {
+    margin: 0px;
+    min-height: 80vh;
+    padding: 12px 12px;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    max-width: 450px;
+    background: linear-gradient(229.32deg, #6888ff99 12.77%, #5E80FF 73.11%);
+    -webkit-box-shadow: 0px 2px 6px black;
+            box-shadow: 0px 2px 6px black;
+    -webkit-transition: 300ms;
+    transition: 300ms;
+  }
+}
+
+
+
+
+

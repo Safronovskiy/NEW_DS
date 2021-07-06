@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{% static 'homePageS.css' %}">
+	</head>
+
+	<body>
+	<div class="container" >
+		<div class="container-wrapp" id="container-wrapp">
+			<div class="actions">
+				<div class="button-wrap">
+					<a class='actions-button' href="{% url 'conspect:show_all' %}" aria-label="show conspect">
+						Посмотреть конспекты
+					</a>
+					<a class = 'actions-button' href="{% url 'conspect:conspect_creation' %}" aria-label="create conspect">
+						Сформировать конспект
+					</a>
+				</div>
+
+              {% if request.user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method="GET">
+                      <input type="submit" value="Выйти" class = 'actions-button' aria-label="entrance" id="exit">
+                </form>
+                <a class = 'actions-button' href="#" aria-label="entrance" id=""> Hello, {{request.user}}! </a>
+                {% else %}
+				<a class = 'actions-button' href="#" aria-label="entrance" id="entrance">
+					Войти
+                </a>
+                {% endif %}
+			</div>
+
+
+			<div class="block-content">
+              {% block content %}
+
+              {% endblock %}
+			</div>
+
+			<footer>
+				<div class="about">
+					<a class="about-link">Детское учреждение "Сад"</a>
+					<a class="about-link">Контакты</a>
+					<a class="about-link">О сайте</a>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="{% static 'js/homepage_form.js' %}"></script>
+</body>
+</html>
+
+
+
+
+

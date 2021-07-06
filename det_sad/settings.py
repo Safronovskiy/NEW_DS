@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    # 'rest_framework.authtoken',
     'corsheaders',
-    # 'corsheaders',
     'conspect',
     'accounts_app',
+    'api',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -53,16 +55,36 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-MIDDLEWARE_CLASSES = (
-
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+]
 
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
-)
+CORS_EXPOSE_HEADERS = ["X-CSRFTOKEN"]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+        ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
+        # 'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+CSRF_USE_SESSIONS = True
+
 CORS_ORIGIN_ALLOW_ALL = True
+
 ROOT_URLCONF = 'det_sad.urls'
 
 TEMPLATES = [
@@ -137,6 +159,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 AUTH_USER_MODEL = 'accounts_app.CustomUserModel'
