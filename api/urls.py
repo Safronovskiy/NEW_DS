@@ -10,7 +10,7 @@ urlpatterns = [
     path('conspect/create/', CreateConspectView.as_view(), name='api_create_conspect'),
 
     path('auth/', include('djoser.urls')),
-    path('login/', LoginView.as_view(), name='login'),
+    # path('login/', LoginView.as_view(), name='login'),
 
 ]
 

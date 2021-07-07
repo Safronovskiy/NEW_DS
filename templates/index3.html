@@ -30,9 +30,6 @@
                 <a href="{% url 'conspect:answ_creation' %}"><input type="button" value="Добавить вариант" id="get_cons3"></a>
             {% endif %}
 
-<!--                {% if request.user.is_staff %}-->
-<!--                    <a href="{% url 'accounts:register' %}"><input type="button" value="Зарегистрировать пользователя" id="show_cons4"></a>-->
-<!--                {% endif %}-->
             {% else %}
                 <form action="{% url 'accounts:login' %}" method="GET">
                     <input type="submit" value="Войти" id="show_cons1">

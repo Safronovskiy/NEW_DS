@@ -1,16 +1,43 @@
-{% extends 'home_page.html' %}
+
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{% static 'login.css' %}">
+	</head>
 
-{% block content %}
+	<body>
+	<div class="container" >
+		<div class="container-wrapp" id="container-wrapp">
+			<div class="actions">
+				<div class="button-wrap">
+					<a class='actions-button' href="/" aria-label="main page">
+						Главная страница
+					</a>
+				</div>
+			</div>
 
-    <table>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_table}}
-           <tr><td></td><td><input type="submit" value="Войти!"></td></tr>
-        </form>
-    </table>
+        {% block content %}
+            <div class="form_wrapp" id="form_wrapp">
+                <form class = "entrance__form" method="POST" id="login_form" action="{% url 'accounts:login' %}">
+                    {% csrf_token %}
+                    {{form.username}}
+                    {{form.password}}
+                    <input class="entrance-button" type="submit"  value="Войти" tabindex="3">
+                </form>
+            </div>
+
+        {% endblock %}
 
 
-{% endblock %}
+		</div>
+	</div>
+	<script src="{% static 'js\login_form.js' %}"></script>
+</body>
+</html>
+
+

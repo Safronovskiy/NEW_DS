@@ -13,7 +13,6 @@ urlpatterns = [
     path('show_all/', ShowSavedConspectsView.as_view(), name='show_all'),
     path('show_details/<int:pk>/', DetailConspectView.as_view(), name='show_details'),
     path('show_all/sort_by_user/', SortByUserConspectView.as_view(), name='sort_by_user'),
-    path('delete_conspect/<int:pk>/', DeleteConspectView.as_view(), name='delete_conspect'),
 
 
     # --------------  FBV with form for objects creation---------------
@@ -21,10 +20,4 @@ urlpatterns = [
     path('component_creation/', structure_component_creation_view, name='comp_creation'),
     path('answer_creation/', answer_creation_view, name='answ_creation'),
 
-
-# -------------------- endpoints for FBV (delete)------------------------------
-#     path('conspect/', detail_lesson, name='detail_lesson'),
-#     path('conspect/<int:pk>', detail_lesson, name='detail_lesson'),
-#path('show_conspects/', show_allconsp_view, name='show_all'),
-#path('show_conspect/<int:pk>/', show_allconsp_view, name='show_details'),
 ]

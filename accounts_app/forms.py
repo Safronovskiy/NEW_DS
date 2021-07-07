@@ -6,7 +6,19 @@ from .models import CustomUserModel
 
 
 class CustomUserForm(AuthenticationForm):
-    pass
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'entrance-login',
+                                              'type':'text',
+                                              'placeholder':'Имя пользователя',
+                                              'required tabindex':'1',
+                                              'autocomplete':'off',
+                                              'autofocus':'',
+                                              }))
+
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'entrance-password',
+                                                                  'type':'password',
+                                                                  'placeholder':'Пароль',
+                                                                  'required tabindex':'2',
+                                                                  'autocomplete': 'off'}))
 
 
 class CustomUserRegisterForm(UserCreationForm):

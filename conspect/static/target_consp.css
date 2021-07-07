@@ -1,0 +1,195 @@
+@font-face {
+	font-family: Montserrat; /* Гарнитура шрифта */
+	src: url(../static/fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: Montserrat; /* Гарнитура шрифта */
+	src: url(../static/fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 600;
+	font-style: normal;
+}
+@font-face {
+	font-family: Montserrat; /* Гарнитура шрифта */
+	src: url(../static/fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: Montserrat; /* Гарнитура шрифта */
+	src: url(../static/fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: Montserrat; /* Гарнитура шрифта */
+	src: url(../static/fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+	font-weight: 300;
+	font-style: normal;
+}
+
+/*Обнуление*/
+*{
+  padding: 0;
+  margin: 0;
+  border: 0;
+
+  font-family: sans-serif;
+}
+*,*:before,*:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+footer,header,aside{display: block;}
+
+html,body{
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+	font-size: 10px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	word-break: break-word;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+/*--------------------*/
+
+.container {
+	width: 100%;
+	background: snow;
+	height: 100%;
+	padding: 20px;
+}
+.answer-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	padding-bottom: 120px;
+	justify-content: space-between;
+}
+
+
+.top-btn{
+	margin-bottom: 12px;
+	border-radius: 5px;
+	padding:12px 21px;
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 21px;
+	text-align: center;
+	color:snow;
+	background: #5e81ff93;
+	box-shadow: 0 4px 8px gray;
+	transition: 300ms all;
+	cursor: pointer;
+}
+.top-btn:last-child{
+	min-width: 140px;
+}
+
+.top-btn:hover{
+	background: #4C85FF;
+}
+
+
+
+
+
+
+
+
+/* target conspect (+print)*/
+.title_topic{
+	margin-bottom: 30px;
+	font-size: 25px;
+	text-align: center;
+}
+.answers{
+	margin: auto;
+	padding: 0 10%;
+	max-width: 100%;
+}
+.answer{
+	margin-bottom: 15px;
+	font-size: 21px;
+}
+
+
+
+/* .top-btn {
+	margin-right: 12px;
+	border-radius: 5px;
+	border: 0px;
+	padding: 12px 21px;
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	text-align: center;
+	color: snow;
+	background: #5e81ff7a;
+	-webkit-box-shadow: 0 4px 8px grey;
+			  box-shadow: 0 4px 8px grey;
+	cursor: pointer;
+	-webkit-transition: 300ms all;
+	transition: 300ms all;
+ }
+
+ .top-btn:hover {
+	background: #4C85FF;
+ } */
+.print-btn{	margin-left: 6px;
+	border: 0;
+	border-radius: 12px;
+	padding: 12px;
+	font-size: 18px;
+	background-color: lightgray;
+	-webkit-box-shadow: 0px 2px 6px lightgray;
+			  box-shadow: 0px 2px 6px lightgray;
+	cursor: pointer;
+	-webkit-transition: 300ms;
+	transition: 300ms;
+}
+
+
+ .print-btn:hover {
+	-webkit-transform: translateY(-6px);
+			  transform: translateY(-6px);
+ }
+
+@media print{
+	html, body{
+		height: 297mm;
+		width: 210mm;
+	}
+	.answers{
+		margin: 0;
+		max-width: 100%;
+	}
+	.container{
+		padding-top: 60px;
+		padding-left: 60px;
+	}
+	.answer-wrapper, .print-btn{
+		display: none;
+	}
+}

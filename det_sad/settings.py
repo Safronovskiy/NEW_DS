@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    # 'rest_framework.authtoken',
     'corsheaders',
     'conspect',
     'accounts_app',
@@ -78,10 +77,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
 
-        # 'rest_framework.authentication.TokenAuthentication',
     ),
 }
-CSRF_USE_SESSIONS = True
+CSRF_USE_SESSIONS = False
 
 CORS_ORIGIN_ALLOW_ALL = True
 

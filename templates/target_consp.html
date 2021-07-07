@@ -1,0 +1,47 @@
+{% extends 'saved_conspects.html' %}
+{% load static %}
+
+
+
+
+   <div class="container">
+	   {% block nav %}
+		<div class="answer-wrapper">
+			<a href="/show_all/"><input type="button" value="Посмотреть Конспекты" id="show_cons" class="top-btn"></a>
+			<a href="{% url 'conspect:conspect_creation' %}"><input type="button" value="Сформировать конспект" id="get_cons1" class="top-btn"></a>
+
+			<form action="/accounts/login/" method="GET">
+				{% if user.is_authenticated %}
+					<form action="{% url 'accounts:logout' %}" method="GET">
+						<input type="submit" value="Выйти" id="show_cons3" class="top-btn">
+					</form>
+				{% else %}
+				<a href="{% url 'accounts:login' %}"><input type="submit" value="Войти" id="show_cons1" class="top-btn"></a>
+				{% endif %}
+			</form>
+		</div>
+		{% endblock %}
+
+	   {% block content %}
+		<div class="conspect">
+			<div class="title_topic">
+				<input type="button" value="Печать" id="show_cons" class="print-btn" onclick="window.print()">
+			</div>
+
+
+			<ol class="answers">
+				{% for component in components %}
+				<li class="answer">{{component}}</li>
+				<br>
+					 {% for item in answers %}
+						{% if item.structure_component == component %}
+							<li class="answer">{{item}}</li>
+						{% endif %}
+					 {% endfor %}
+				<br>
+				{% endfor %}
+			</ol>
+
+		</div>
+   		{% endblock %}
+   </div>

@@ -35,25 +35,31 @@ class ShowSavedConspectsView(generic.ListView):
     model = ConspectModel
     context_object_name = 'conspects'
     paginate_by = 8
-    ordering = '-date_created'
+    ordering = 'date_created'
 
-    def post(self, request, *args, **kwargs):
-        """ method was added for sorting objects by date when pressing the button on page """
+    def get_queryset(self):
 
-        if self.__class__.ordering == 'date_created':
-            self.__class__.ordering = '-date_created'
-            return redirect('conspect:show_all')
+        queryset = ConspectModel.objects.all()
+        conspect_name = self.request.GET.get('conspect_name')
+        conspect_owner = self.request.GET.get('conspect_owner')
+        conspect_date = self.request.GET.get('conspect_date')
 
-        elif self.__class__.ordering == '-date_created':
-            self.__class__.ordering = 'date_created'
-            return redirect('conspect:show_all')
+        if conspect_name:
+            queryset = queryset.filter(name__icontains=conspect_name)
+        if conspect_owner:
+            queryset = queryset.filter(owner__icontains=conspect_owner)
+        if conspect_date:
+            queryset = queryset.filter(date_created=conspect_date)
+
+        return queryset
+
 
 
 class DetailConspectView(generic.DetailView):
     """It shows detail information about conspect object"""
 
     model = ConspectModel
-    template_name = 'show_detail.html'
+    template_name = 'target_consp.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,11 +69,6 @@ class DetailConspectView(generic.DetailView):
         context['components'] = StructureComponentModel.objects.filter(answers__in=answers).distinct()
         return context
 
-
-class DeleteConspectView(LoginRequiredMixin, generic.DeleteView):
-    model = ConspectModel
-    template_name = 'delete_confirmation.html'
-    success_url = reverse_lazy('conspect:show_all')
 
 
 class SortByUserConspectView(generic.ListView):
@@ -91,29 +92,6 @@ class SortByUserConspectView(generic.ListView):
             self.__class__.ordering = 'owner'
             return redirect('conspect:sort_by_user')
 
-
-# -------------- FBV ----------------------------------------
-
-
-# def detail_lesson(request, pk=None):
-#     subjects = StructureComponentModel.objects.filter(subject=pk)
-#     subj = SubjectModel.objects.all()
-#     return render(request, 'index.html', {'subjects': subjects,
-#                                           'subj': subj})
-#
-#
-# #
-
-#
-# def show_allconsp_view(request, pk=None):
-#     if pk:
-#         answers = AnswerModel.objects.filter(conspects=pk)
-#         comps = StructureComponentModel.objects.filter(answers__in=answers).distinct()
-#         return render(request, 'show_consp.html', {'answers': answers,
-#                                                    'components':comps})
-#
-#     conspects = ConspectModel.objects.all()
-#     return render(request, 'show_all.html', {'conspects': conspects})
 
 
 # ---------------- DO NOT FORGET to override this FBV to CBV !!!----------------------
