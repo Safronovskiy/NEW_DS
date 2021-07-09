@@ -111,7 +111,26 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 
 
 
-
+/* Category list */
+.category_list{
+    border-radius:12px;
+    padding: 12px 0px;
+    min-width:210px;
+    background: linear-gradient(229.32deg, #6888FF 12.77%, #5E80FF 73.11%);
+}
+.category_list li{
+    margin-bottom: 9px;
+    text-align:center;
+    transition: 300ms;
+    cursor: pointer;
+}
+.category_list li:hover{
+    background-color:lightgray;
+}
+.category_list li a{
+    font-size: 23px;
+    color:white;
+}
 
 /** Template */
 .questions {

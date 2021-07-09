@@ -42,14 +42,14 @@ class ShowSavedConspectsView(generic.ListView):
         queryset = ConspectModel.objects.all()
         conspect_name = self.request.GET.get('conspect_name')
         conspect_owner = self.request.GET.get('conspect_owner')
-        conspect_date = self.request.GET.get('conspect_date')
+        # conspect_date = self.request.GET.get('conspect_date')
 
         if conspect_name:
             queryset = queryset.filter(name__icontains=conspect_name)
         if conspect_owner:
             queryset = queryset.filter(owner__icontains=conspect_owner)
-        if conspect_date:
-            queryset = queryset.filter(date_created=conspect_date)
+        # if conspect_date:
+        #     queryset = queryset.filter(date_created=conspect_date)
 
         return queryset
 
