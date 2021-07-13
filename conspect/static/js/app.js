@@ -197,7 +197,7 @@ function fn2(value) {
 
 		 };
 
-		 fetch('http://127.0.0.1:8000/api/conspect/create/', requestOptions)
+		 fetch('http://detsad.pythonanywhere.com/api/conspect/create/', requestOptions)
 	}
 }
 

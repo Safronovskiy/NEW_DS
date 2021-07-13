@@ -43,20 +43,24 @@ INSTALLED_APPS = [
     'conspect',
     'accounts_app',
     'api',
-    'djoser',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+
+
 ]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_EXPOSE_HEADERS = ["X-CSRFTOKEN"]
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -67,7 +71,7 @@ CORS_ALLOW_METHODS = [
     'PUT',
 ]
 
-CORS_EXPOSE_HEADERS = ["X-CSRFTOKEN"]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -79,9 +83,7 @@ REST_FRAMEWORK = {
 
     ),
 }
-CSRF_USE_SESSIONS = False
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'det_sad.urls'
 
@@ -152,7 +154,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = BASE_DIR / 'static'
 
 
 # Default primary key field type
