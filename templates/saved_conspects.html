@@ -14,7 +14,7 @@
 	{% block nav %}
 		<div class="answer-wrapper">
 			<a href="{% url 'conspect:show_all' %}"><input type="button" value="Посмотреть Конспекты" id="show_cons" class="top-btn"></a>
-			<a href="{% url 'conspect:conspect_creation' %}"><input type="button" value="Сформировать конспект" id="get_cons1" class="top-btn"></a>
+			<a href="{% url 'conspect:conspect_creation' %}"><input type="button" value="Составить конспект" id="get_cons1" class="top-btn"></a>
 
 			{% if request.user.is_authenticated %}
 			<form action="{% url 'accounts:logout' %}" method="GET">
@@ -31,11 +31,21 @@
 
 
 {% block content %}
+                                               <!--MESSAGES-->
+	{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+				<li>
+				{{ message }}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
 
 		<form action="" method="GET" class="search_form">
 			<input type="text" name="conspect_name" value="" placeholder="По названию" autocomplete="off">
 			<input type="text" name="conspect_owner" value="" placeholder="По автору" autocomplete="off">
-<!--			<input type="text" name="conspect_date" value="" placeholder="По дате" autocomplete="off">-->
 			<input type="submit" name="" value="Искать" class="search_submit">
 		</form>
 

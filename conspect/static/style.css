@@ -1,35 +1,35 @@
 @font-face {
-	font-family: Montserrat; /* Гарнитура шрифта */
-	src: url(../static/fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+	font-family: Montserrat; /* Р“Р°СЂРЅРёС‚СѓСЂР° С€СЂРёС„С‚Р° */
+	src: url(../static/fonts/Montserrat/Montserrat-Bold.ttf); /* РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃРѕ С€СЂРёС„С‚РѕРј */
 	font-weight: 700;
 	font-style: normal;
 }
 @font-face {
-	font-family: Montserrat; /* Гарнитура шрифта */
-	src: url(../static/fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+	font-family: Montserrat; /* Р“Р°СЂРЅРёС‚СѓСЂР° С€СЂРёС„С‚Р° */
+	src: url(../static/fonts/Montserrat/Montserrat-SemiBold.ttf); /* РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃРѕ С€СЂРёС„С‚РѕРј */
 	font-weight: 600;
 	font-style: normal;
 }
 @font-face {
-	font-family: Montserrat; /* Гарнитура шрифта */
-	src: url(../static/fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+	font-family: Montserrat; /* Р“Р°СЂРЅРёС‚СѓСЂР° С€СЂРёС„С‚Р° */
+	src: url(../static/fonts/Montserrat/Montserrat-Regular.ttf); /* РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃРѕ С€СЂРёС„С‚РѕРј */
 	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
-	font-family: Montserrat; /* Гарнитура шрифта */
-	src: url(../static/fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+	font-family: Montserrat; /* Р“Р°СЂРЅРёС‚СѓСЂР° С€СЂРёС„С‚Р° */
+	src: url(../static/fonts/Montserrat/Montserrat-Medium.ttf); /* РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃРѕ С€СЂРёС„С‚РѕРј */
 	font-weight: 500;
 	font-style: normal;
 }
 @font-face {
-	font-family: Montserrat; /* Гарнитура шрифта */
-	src: url(../static/fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+	font-family: Montserrat; /* Р“Р°СЂРЅРёС‚СѓСЂР° С€СЂРёС„С‚Р° */
+	src: url(../static/fonts/Montserrat/Montserrat-Light.ttf); /* РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃРѕ С€СЂРёС„С‚РѕРј */
 	font-weight: 300;
 	font-style: normal;
 }
 
-/*Обнуление*/
+/*РћР±РЅСѓР»РµРЅРёРµ*/
 *{
   padding: 0;
   margin: 0;
@@ -460,3 +460,158 @@ td{
 .button-cancel:hover, .button-ok:hover{
 	background-color: #a7b1d5;
 }
+
+
+
+/* Button add */
+
+.answer, .result{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.add{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	/* border-radius: 12px;
+	border:3px solid snow; */
+	padding: 12px;
+	transition: 300ms;
+}
+
+.add.close{
+	margin: 0;
+	border: 0;
+	padding: 0;
+	font-size: 0;
+}
+
+.add span{
+	flex:1 0 auto;
+	order:2;
+	align-self: flex-start;
+	margin-left: 12px;
+	border-radius: 12px;
+	padding: 12px;
+	font-family: sans-serif;
+	font-size: 21px;
+	transition: 300ms;
+	cursor: pointer;
+}
+
+.add span.close{
+	margin-bottom: 0;
+	border-radius: 0;
+	padding: 0;
+	font-size: 0;
+}
+
+.add span:hover{
+	transform: translateY(-3px);
+	color:snow;
+	background-color:#4C85FF;
+}
+
+.add textarea{
+	order:1;
+	border-radius: 12px;
+	padding: 12px;
+	font-size: 21px;
+	width: 70%;
+}
+
+.add textarea.close{
+	border-radius: 0px;
+	padding: 0px;
+	font-size: 0px;
+	width: 0%;
+}
+
+.add_answer{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.del_answer{
+	align-self: flex-start;
+	background-color: gray;
+	padding: 6px;
+	border-radius: 6px;
+	box-shadow: 0px 0px 6px grey;
+	transition: 300ms;
+}
+
+.del_answer:hover{
+	background-color: rgb(133, 113, 113);
+	transform: translateY(-3px);
+}
+
+/* Print */
+
+.answer-wrapper .print-btn {
+	margin-left: 6px;
+	border: 0;
+	border-radius: 12px;
+	padding: 12px;
+	font-family: sans-serif;
+	font-size: 18px;
+	background-color: lightgray;
+	-webkit-box-shadow: 0px 2px 6px lightgray;
+			  box-shadow: 0px 2px 6px lightgray;
+	cursor: pointer;
+	color: black;
+	-webkit-transition: 300ms;
+	transition: 300ms;
+ }
+
+ .answer-wrapper .print-btn:hover {
+	border-radius: 12px;
+	-webkit-transform: translateY(-6px);
+			  transform: translateY(-6px);
+	color: black;
+	background-color: lightgray;
+	-webkit-box-shadow: 0px 2px 6px lightgray;
+			  box-shadow: 0px 2px 6px lightgray;
+ }
+
+ @media print {
+	html, body {
+	  height: 297mm;
+	  width: 210mm;
+	  overflow-y: visible;
+	  overflow-y: visible;
+	  height: auto;
+	}
+	.container {
+	  height: auto;
+	}
+	.category_list {
+	  display: none;
+	}
+	.questions {
+	  display: none;
+	}
+	.total {
+	  width: 100%;
+	  overflow-y: visible;
+	}
+	.answers {
+	  margin: 0;
+	  max-width: 100%;
+	}
+	.container {
+	  padding-top: 60px;
+	  padding-left: 60px;
+	  height: auto;
+	}
+	.answer-wrapper, .print-btn {
+	  display: none;
+	}
+
+	.del_answer{
+		display: none;
+	}
+ }
+

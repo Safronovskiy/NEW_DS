@@ -13,18 +13,31 @@ const TRANSITION_ADD_ELEMS = 300;
 const TRANSITION_REMOVE_BLOCK = 100;
 const TRANSITION_ADD_BLOCK = 600;
 
+//! template add_button
+const add_template = `<div class="add">
+								<span id="add_answer">+ Добавить</span>
+								<textarea class = 'user_input' name="" id="" cols="30" rows="1"></textarea>
+							</div>`
+
 // First step: get all questions blocks;
 //					create order of question's block's;   order:3 (for excample)
 //					add EListner for every parent
 const question_bloks = document.querySelectorAll('.question_block');
 		question_bloks.forEach((elem, order) =>{
+			//! template add_button
+			elem.innerHTML += add_template;
 			elem.setAttribute('order', `${order}`);
 			elem.addEventListener('click', checkAnswer);
 		})
 
 
-const test = document.querySelector('#totalt')
-		test.addEventListener('click', checkAnswer)
+
+//! Check new button (add)
+const add_blocks = document.querySelectorAll('.add')
+		add_blocks.forEach((elem, index)=>{
+			elem.setAttribute('parent', index);
+		})
+
 
 
 
@@ -52,6 +65,47 @@ function checkAnswer(event){
 		}
 
 	}
+
+
+
+	//!  Button add elem
+	if(event.target.id === 'add_answer'){
+		const target_parent = event.target.parentNode;
+		const target_textarea = target_parent.querySelector('.user_input');
+		const text = target_textarea.value;
+		// console.log(event)
+				target_textarea.value = "";
+				if(text === '') {
+					target_textarea.placeholder = 'Введите текст'
+				}else{
+					const question_block = document.querySelector(`div[order = '${target_parent.getAttribute('parent')}']`)
+							console.log(question_block);
+					const answers = question_block.querySelector('.answers');
+					// console.log(answers)
+					const answer = createElem('div', 'answer add_answer');
+							// Set delete x
+					const del = createElem('span', 'del_answer')
+							del.textContent = 'X';
+							answer.textContent = text;
+							answer.append(del);
+							answers.append(answer);
+				}
+
+	}
+
+	//! Button del elem
+	if(event.target.classList.contains('del_answer')){
+		// answer add
+		const answer_add_parent = event.target.parentNode;
+		// answers
+		const answers_parent = answer_add_parent.parentNode;
+		const block_parent = answers_parent.parentNode;
+				answer_add_parent.remove();
+		if(checkParent(answers_parent)){
+			cleanContainer(block_parent);
+		}
+
+	}
 }
 
 function createQuestionTemplate(elem, parent, container_class, block_class, wrapp_class, elem_class, order){
@@ -67,7 +121,13 @@ function createQuestionTemplate(elem, parent, container_class, block_class, wrap
 	const clone_wrapp = wrapp.cloneNode(false)
 			clone_wrapp.className = wrapp_class;
 
-			clone_parent.append(clone_title, clone_wrapp);
+			//! add button
+			if(block_class === 'question_block'){
+				const parent = clone_parent.getAttribute('order')
+				clone_parent.innerHTML = add_template;
+				clone_parent.querySelector('.add').setAttribute('parent', parent);
+			}
+			clone_parent.prepend(clone_title, clone_wrapp);
 
 	const clone_elem = elem.cloneNode(true);
 			clone_elem.className = elem_class;
@@ -114,14 +174,16 @@ function moveTargetElem(elem, container_class, wrapp_class, elem_class, order){
 			elem.classList.add('close');
 			opposite_wrapp.append(clone_elem);
 
-	//delete elem (in outer parent)
+	// delete elem (in outer parent)
 	setTimeout(()=> {
 		elem.remove();
 		if(checkParent(wrapp)) cleanContainer(parent);
+		//! add_button
+		// if(opposite_parent.classList.contains('question_block')) console.log(true)
 	}
 	, TRANSITION_REMOVE_ELEMS);
 
-	// add elem (in ipposite parent)
+	// add elem (in opposite parent)
 	setTimeout(() =>{
 		clone_elem.classList.remove('close');
 	})
@@ -132,9 +194,18 @@ function moveTargetElem(elem, container_class, wrapp_class, elem_class, order){
 
 
 
-
+//! Hidden block add
 function cleanContainer(parent){
-	for(let elem of parent.children) elem.classList.add('close');
+	// .close first layer
+	for(let elem of parent.children){
+		if(elem.children.length > 0){
+			// .close second layer
+			for(let i of elem.children){
+				i.classList.add('close')
+			}
+		}
+		 elem.classList.add('close');
+		}
 	parent.classList.add('close');
 	setTimeout(()=> parent.remove(), TRANSITION_REMOVE_BLOCK);
 }
@@ -206,6 +277,26 @@ function getCookie(){
 	const cookie = data[1];
 	return cookie
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

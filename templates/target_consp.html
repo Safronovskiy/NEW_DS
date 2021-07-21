@@ -31,6 +31,13 @@
 		<div class="conspect">
 			<div class="title_topic">
 				<input type="button" value="Печать" id="show_cons" class="print-btn" onclick="window.print()">
+
+				<form action="{% url 'conspect:edit' %}" method="get">
+					<input type="hidden" name="id" value="{{request.path}}">
+					<input type="submit" value="Редактировать" id="show_cons1" class="print-btn">
+				</form>
+
+
 			</div>
 
 

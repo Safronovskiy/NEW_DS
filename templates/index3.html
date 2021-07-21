@@ -18,28 +18,27 @@
                 <input type="button" value="Сохранить Конспект" id="save_cons">
             {% endif %}
 
-            <input type="button" value="Скачать Конспект" id="get_cons">
-
             {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <a href="/admin/"><input type="button" value="Админка" id="save_cons"></a>
+                {% endif%}
+                {% if request.user.is_methodist %}
+                    <a href="{% url 'conspect:methodist_desktop' %}"><input type="button" value="Рабочий стол" id="get_cons"></a>
+                {% endif %}
                 <form action="{% url 'accounts:logout' %}" method="GET">
                     <input type="submit" value="Выйти" id="show_cons3">
                 </form>
-<!--            {% if request.user.is_methodist %}-->
-<!--                <a href="{% url 'conspect:subj_creation' %}"><input type="button" value="Добавить предмет" id="get_cons1"></a>-->
-<!--                <a href="{% url 'conspect:comp_creation' %}"><input type="button" value="Добавить структурный компонент" id="get_cons2"></a>-->
-<!--                <a href="{% url 'conspect:answ_creation' %}"><input type="button" value="Добавить вариант" id="get_cons3"></a>-->
-<!--            {% endif %}-->
-
             {% else %}
                 <form action="{% url 'accounts:login' %}" method="GET">
                     <input type="submit" value="Войти" id="show_cons1">
                 </form>
             {% endif %}
+            <input type="button" value="Печать" id="show_cons" class="print-btn" onclick="window.print()">
         </div>
         {% endblock %}
 
 
-
+{% block content %}
         <div class="question-wrapper">
             <nav class="category_list">
                 <ul>
@@ -68,22 +67,12 @@
 
             </section>
 
-			  <section class="total" id="total">
-                <h3 class="total_title">Результат :</h3>
+			    <section class="total" id="total">
+                    <h3 class="total_title">Результат :</h3>
 
-
-					 <!-- template result -->
-<!--					 <div class="total_block" order = '0' id="totalt">-->
-<!--						<h4 class="title_topic">GEOMETRY</h4>-->
-<!--						<div class="results">-->
-<!--						  <div class="result">Деление</div>-->
-<!--					  </div>-->
-<!--				    </div>-->
-
-
-
-            </section>
+                </section>
         </div>
+{% endblock %}
     </div>
 
 	 <script src="{% static 'js/app.js' %}"></script>

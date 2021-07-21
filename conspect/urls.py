@@ -6,18 +6,22 @@ app_name = 'conspect'
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home_page2.html'), name='home'),
+    path('', StartPageView.as_view(), name='home'),
 
+    path('conspect_creation/<int:pk>', ConspectCreationView.as_view(), name='conspect_creation'),
     path('conspect_creation/', ConspectCreationView.as_view(), name='conspect_creation'),
-    path('conspect_creation/<int:pk>', ConspectCreationDetailView.as_view(), name='conspect_creation'),
+
     path('show_all/', ShowSavedConspectsView.as_view(), name='show_all'),
     path('show_details/<int:pk>/', DetailConspectView.as_view(), name='show_details'),
-    path('show_all/sort_by_user/', SortByUserConspectView.as_view(), name='sort_by_user'),
+    path('methodist_desktop/', MethodistDesktopView.as_view(), name='methodist_desktop'),
+    path('methodist_desktop/subject_creation/', SubjectCreationView.as_view(), name='subj_creation'),
+    path('methodist_desktop/component_creation/', StructureComponentCreationView.as_view(), name='comp_creation'),
+    path('methodist_desktop/answer_creation/', AnswerCreationView.as_view(), name='answ_creation'),
 
+    path('edit_conspect/', edit_conspectview, name='edit'),
 
-    # --------------  FBV with form for objects creation---------------
-    path('subj_creation/', subject_creation_view, name='subj_creation'),
-    path('component_creation/', structure_component_creation_view, name='comp_creation'),
-    path('answer_creation/', answer_creation_view, name='answ_creation'),
+    # path('methodist_desktop/subj_creation/', subject_creation_view, name='subj_creation'),
+    # path('methodist_desktop/component_creation/', structure_component_creation_view, name='comp_creation'),
+    # path('methodist_desktop/answer_creation/', answer_creation_view, name='answ_creation'),
 
 ]

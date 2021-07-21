@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z)o=3e=(kertyjij$6d$x2!i3fu$(5lc#=^*j7rc0d&z%hh=#a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://detsad.pythonanywhere.com/',]
+ALLOWED_HOSTS = ['detsad.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -63,11 +63,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_EXPOSE_HEADERS = ["X-CSRFTOKEN"]
 
 CORS_ALLOW_METHODS = [
+    'POST',
     'DELETE',
     'GET',
     'OPTIONS',
     'PATCH',
-    'POST',
     'PUT',
 ]
 

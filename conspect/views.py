@@ -1,8 +1,21 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import generic
-from .forms import *
+from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
+from .forms import *
+from django.contrib import messages
+
+
+
+class StartPageView(TemplateView):
+    template_name = 'home_page2.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        footer = FooterInfoModel.objects.get(id=1)
+        context['info'] = footer
+        return context
 
 
 class ConspectCreationView(generic.ListView):
@@ -12,20 +25,30 @@ class ConspectCreationView(generic.ListView):
     model = SubjectModel
     context_object_name = 'subj'
 
-
-class ConspectCreationDetailView(generic.DetailView):
-    """ Renders page of conspect compilation """
-
-    template_name = 'index3.html'
-    model = StructureComponentModel
-
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.object = self.get_object()
-        pk = self.object.pk
-        context['subj'] = SubjectModel.objects.all()
-        context['subjects'] = StructureComponentModel.objects.filter(subject=pk)
+        if self.kwargs.get('pk'):
+            pk = self.kwargs.get('pk')
+            context['subj'] = SubjectModel.objects.all()
+            context['subjects'] = StructureComponentModel.objects.filter(subject=pk)
+            return context
         return context
+
+
+# class ConspectCreationDetailView(generic.DetailView):
+#     """ Renders page of conspect compilation """
+#
+#     template_name = 'index3.html'
+#     model = StructureComponentModel
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         self.object = self.get_object()
+#         pk = self.object.pk
+#         context['subj'] = SubjectModel.objects.all()
+#         context['subjects'] = StructureComponentModel.objects.filter(subject=pk)
+#         return context
+
 
 
 class ShowSavedConspectsView(generic.ListView):
@@ -42,15 +65,11 @@ class ShowSavedConspectsView(generic.ListView):
         queryset = ConspectModel.objects.all()
         conspect_name = self.request.GET.get('conspect_name')
         conspect_owner = self.request.GET.get('conspect_owner')
-        # conspect_date = self.request.GET.get('conspect_date')
 
         if conspect_name:
             queryset = queryset.filter(name__icontains=conspect_name)
         if conspect_owner:
             queryset = queryset.filter(owner__icontains=conspect_owner)
-        # if conspect_date:
-        #     queryset = queryset.filter(date_created=conspect_date)
-
         return queryset
 
 
@@ -71,26 +90,60 @@ class DetailConspectView(generic.DetailView):
 
 
 
-class SortByUserConspectView(generic.ListView):
+class MethodistDesktopView(generic.ListView, LoginRequiredMixin):
 
-    template_name = 'saved_conspects.html'
-    model = ConspectModel
-    context_object_name = 'conspects'
-    paginate_by = 8
-    ordering = ['owner', '-date_created']
+    template_name = 'methodist_desktop.html'
+    model = SubjectModel
+    context_object_name = 'subj'
+    # success_message = 'Предмет успешно создан'
 
-    def get_queryset(self):
-        return ConspectModel.objects.filter(owner=self.request.user)
 
-    def post(self, request, *args, **kwargs):
+class SubjectCreationView(LoginRequiredMixin, FormView):
+    template_name = 'creation_form.html'
+    form_class = SubjectForm
+    success_message = 'Объект успешно создан!'
+    success_url = reverse_lazy('conspect:subj_creation')
 
-        if self.__class__.ordering == 'owner':
-            self.__class__.ordering = '-owner'
-            return redirect('conspect:sort_by_user')
+    def get_initial(self):
+        initial = {'author': self.request.user}
+        return initial
 
-        elif self.__class__.ordering == '-owner':
-            self.__class__.ordering = 'owner'
-            return redirect('conspect:sort_by_user')
+    def form_valid(self, form):
+        form.save()
+        return redirect(self.success_url)
+
+class StructureComponentCreationView(LoginRequiredMixin, FormView):
+    template_name = 'creation_form.html'
+    form_class = StructureComponentForm
+    success_message = 'Объект успешно создан!'
+    success_url = reverse_lazy('conspect:comp_creation')
+
+    def get_initial(self):
+        initial = {'author': self.request.user}
+        return initial
+
+    def form_valid(self, form):
+        form.save()
+        return redirect(self.success_url)
+
+class AnswerCreationView(LoginRequiredMixin,FormView):
+    template_name = 'creation_form.html'
+    form_class = AnswerForm
+    success_message = 'Объект успешно создан!'
+    success_url = reverse_lazy('conspect:answ_creation')
+
+    def get_initial(self):
+        initial = {'author': self.request.user}
+        return initial
+
+    def form_valid(self, form):
+        form.save()
+        return redirect(self.success_url)
+
+
+
+
+
 
 
 
@@ -102,8 +155,9 @@ def subject_creation_view(request):
         form = SubjectForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('conspect:detail_lesson')
-    form = SubjectForm()
+            message = messages.success(request, f'Предмет {form.cleaned_data.get("name")} успешно создан')
+            return render(request, 'creation_form.html', {'form': form, 'messages':message,})
+    form = SubjectForm(initial={'author': request.user})
     return render(request, 'creation_form.html', {'form': form})
 
 
@@ -125,3 +179,14 @@ def answer_creation_view(request):
             return redirect('conspect:detail_lesson')
     form = AnswerForm()
     return render(request, 'creation_form.html', {'form': form})
+
+
+
+
+def edit_conspectview(request):
+    id = request.GET.get('id')[-3:-1]
+    print(id)
+    consp = ConspectModel.objects.get(id=id)
+    form = ConspectForm(instance=consp)
+    return render(request, 'edit_conspect.html', {'form': form})
+

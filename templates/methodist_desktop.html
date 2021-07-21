@@ -1,0 +1,58 @@
+{% extends 'saved_conspects.html' %}
+{% load static %}
+
+{% block nav %}
+
+	{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+				<li>
+				{{ message }}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+		<div class="answer-wrapper">
+			<a href="{% url 'conspect:show_all' %}"><input type="button" value="Посмотреть Конспекты" id="show_cons" class="top-btn"></a>
+			<a href="{% url 'conspect:conspect_creation' %}"><input type="button" value="Составить конспект" id="get_cons1" class="top-btn"></a>
+			<a href="{% url 'conspect:subj_creation' %}"><input type="button" value="Добавить предмет" id="get_cons2" class="top-btn"></a>
+			<a href="{% url 'conspect:comp_creation' %}"><input type="button" value="Добавить компонент" id="get_cons3" class="top-btn"></a>
+			<a href="{% url 'conspect:answ_creation' %}"><input type="button" value="Добавить вариант" id="get_cons4" class="top-btn"></a>
+
+			{% if request.user.is_authenticated %}
+			<form action="{% url 'accounts:logout' %}" method="GET">
+				<input type="submit" value="Выйти" id="show_cons3" class="top-btn">
+			</form>
+			{% else %}
+				<a class = 'top-btn' href="{% url 'accounts:login' %}" aria-label="entrance" id="entrance">
+					Войти
+                </a>
+			{% endif %}
+		</div>
+	{% endblock %}
+
+
+{% block content %}
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
