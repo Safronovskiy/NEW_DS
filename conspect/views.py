@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import generic
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, UpdateView
 from django.urls import reverse_lazy
 from .forms import *
 from django.contrib import messages
@@ -95,7 +95,56 @@ class MethodistDesktopView(generic.ListView, LoginRequiredMixin):
     template_name = 'methodist_desktop.html'
     model = SubjectModel
     context_object_name = 'subj'
-    # success_message = 'Предмет успешно создан'
+    success_message = 'Объект успешно создан'
+
+    def get_context_data(self, **kwargs):
+        content = super().get_context_data(**kwargs)
+        user = self.request.user
+        content['my_subjects'] = SubjectModel.objects.filter(author=user)
+        content['my_components'] = StructureComponentModel.objects.filter(author=user)
+        content['my_answers'] = AnswerModel.objects.filter(author=user)
+        return content
+
+
+class EditSubjectView(UpdateView):
+    template_name = 'edit_object.html'
+    model = SubjectModel
+    fields = ['name']
+    success_url = reverse_lazy('conspect:methodist_desktop')
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset = SubjectModel.objects.filter(id=pk)
+        return queryset
+
+
+class EditComponentView(UpdateView):
+    template_name = 'edit_object.html'
+    model = StructureComponentModel
+    fields = ['name', 'subject']
+    success_url = reverse_lazy('conspect:methodist_desktop')
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset = StructureComponentModel.objects.filter(id=pk)
+        return queryset
+
+
+class EditAnswerView(UpdateView):
+    template_name = 'edit_object.html'
+    model = AnswerModel
+    fields = ['content', 'structure_component']
+    success_url = reverse_lazy('conspect:methodist_desktop')
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset = AnswerModel.objects.filter(id=pk)
+        return queryset
+
+
+
+
+
 
 
 class SubjectCreationView(LoginRequiredMixin, FormView):

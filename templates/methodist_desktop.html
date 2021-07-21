@@ -34,7 +34,30 @@
 
 
 {% block content %}
+	<div style="display:flex; justify-content:space-around;">
 
+		<ul>
+			<p>Мои предметы:</p>
+			{% for item in my_subjects %}
+				<li><a href="{% url 'conspect:edit_subj' item.pk %}">{{item}}</a></li>
+			{% endfor %}
+		</ul>
+
+		<ul>
+			<p>Мои структурные компоненты:</p>
+			{% for item in my_components %}
+				<li><a href="{% url 'conspect:edit_comp' item.pk %}">{{item}}</a></li>
+			{% endfor %}
+		</ul>
+
+		<ul>
+			<p>Мои вопросы:</p>
+			{% for item in my_answers %}
+				<li><a href="{% url 'conspect:edit_answ' item.pk %}">{{item}}</a></li>
+			{% endfor %}
+		</ul>
+
+	</div>
 
 
 {% endblock %}

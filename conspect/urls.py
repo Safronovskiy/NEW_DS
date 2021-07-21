@@ -18,6 +18,10 @@ urlpatterns = [
     path('methodist_desktop/component_creation/', StructureComponentCreationView.as_view(), name='comp_creation'),
     path('methodist_desktop/answer_creation/', AnswerCreationView.as_view(), name='answ_creation'),
 
+    path('edit_subject/<int:pk>/', EditSubjectView.as_view(), name='edit_subj'),
+    path('edit_component/<int:pk>/', EditComponentView.as_view(), name='edit_comp'),
+    path('edit_answer/<int:pk>/', EditAnswerView.as_view(), name='edit_answ'),
+
     path('edit_conspect/', edit_conspectview, name='edit'),
 
     # path('methodist_desktop/subj_creation/', subject_creation_view, name='subj_creation'),
