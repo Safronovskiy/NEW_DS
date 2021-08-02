@@ -43,7 +43,6 @@ class AnswerModel(Model):
         return f'{self.content}'
 
 
-
 class ConspectModel(Model):
     name = CharField(max_length=255, verbose_name='Название', default='Noname')
     owner = CharField(max_length=255, blank=True, verbose_name='Автор')

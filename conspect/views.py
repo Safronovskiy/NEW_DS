@@ -1,25 +1,24 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
-from django.views import generic
-from django.views.generic import FormView, TemplateView, UpdateView
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, FormView, TemplateView, UpdateView
 from django.urls import reverse_lazy
 from .forms import *
-from django.contrib import messages
+
 
 
 
 class StartPageView(TemplateView):
+
     template_name = 'home_page2.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        footer = FooterInfoModel.objects.get(id=1)
+        footer = FooterInfoModel.objects.all().first()
         context['info'] = footer
         return context
 
 
-class ConspectCreationView(generic.ListView):
-    """ Renders page of conspect compilation """
+class ConspectCreationView(ListView):
 
     template_name = 'index3.html'
     model = SubjectModel
@@ -35,24 +34,7 @@ class ConspectCreationView(generic.ListView):
         return context
 
 
-# class ConspectCreationDetailView(generic.DetailView):
-#     """ Renders page of conspect compilation """
-#
-#     template_name = 'index3.html'
-#     model = StructureComponentModel
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         self.object = self.get_object()
-#         pk = self.object.pk
-#         context['subj'] = SubjectModel.objects.all()
-#         context['subjects'] = StructureComponentModel.objects.filter(subject=pk)
-#         return context
-
-
-
-class ShowSavedConspectsView(generic.ListView):
-    """It shows all saved conspect objects on page"""
+class ShowSavedConspectsView(ListView):
 
     template_name = 'saved_conspects.html'
     model = ConspectModel
@@ -73,9 +55,7 @@ class ShowSavedConspectsView(generic.ListView):
         return queryset
 
 
-
-class DetailConspectView(generic.DetailView):
-    """It shows detail information about conspect object"""
+class DetailConspectView(DetailView):
 
     model = ConspectModel
     template_name = 'target_consp.html'
@@ -89,8 +69,7 @@ class DetailConspectView(generic.DetailView):
         return context
 
 
-
-class MethodistDesktopView(generic.ListView, LoginRequiredMixin):
+class MethodistDesktopView(LoginRequiredMixin, ListView):
 
     template_name = 'methodist_desktop.html'
     model = SubjectModel
@@ -106,10 +85,10 @@ class MethodistDesktopView(generic.ListView, LoginRequiredMixin):
         return content
 
 
-class EditSubjectView(UpdateView):
-    template_name = 'edit_object.html'
+class EditSubjectView(LoginRequiredMixin, UpdateView):
+    template_name = 'subject_edit_object.html'
     model = SubjectModel
-    fields = ['name']
+    form_class = SubjectForm
     success_url = reverse_lazy('conspect:methodist_desktop')
 
     def get_queryset(self):
@@ -118,10 +97,10 @@ class EditSubjectView(UpdateView):
         return queryset
 
 
-class EditComponentView(UpdateView):
-    template_name = 'edit_object.html'
+class EditComponentView(LoginRequiredMixin, UpdateView):
+    template_name = 'structure_edit_object.html'
     model = StructureComponentModel
-    fields = ['name', 'subject']
+    form_class = StructureComponentForm
     success_url = reverse_lazy('conspect:methodist_desktop')
 
     def get_queryset(self):
@@ -130,10 +109,10 @@ class EditComponentView(UpdateView):
         return queryset
 
 
-class EditAnswerView(UpdateView):
-    template_name = 'edit_object.html'
+class EditAnswerView(LoginRequiredMixin, UpdateView):
+    template_name = 'answer_edit_object.html'
     model = AnswerModel
-    fields = ['content', 'structure_component']
+    form_class = AnswerForm
     success_url = reverse_lazy('conspect:methodist_desktop')
 
     def get_queryset(self):
@@ -142,13 +121,8 @@ class EditAnswerView(UpdateView):
         return queryset
 
 
-
-
-
-
-
 class SubjectCreationView(LoginRequiredMixin, FormView):
-    template_name = 'creation_form.html'
+    template_name = 'subject_creation_form.html'
     form_class = SubjectForm
     success_message = 'Объект успешно создан!'
     success_url = reverse_lazy('conspect:subj_creation')
@@ -161,8 +135,9 @@ class SubjectCreationView(LoginRequiredMixin, FormView):
         form.save()
         return redirect(self.success_url)
 
+
 class StructureComponentCreationView(LoginRequiredMixin, FormView):
-    template_name = 'creation_form.html'
+    template_name = 'structure_creation_form.html'
     form_class = StructureComponentForm
     success_message = 'Объект успешно создан!'
     success_url = reverse_lazy('conspect:comp_creation')
@@ -175,8 +150,9 @@ class StructureComponentCreationView(LoginRequiredMixin, FormView):
         form.save()
         return redirect(self.success_url)
 
+
 class AnswerCreationView(LoginRequiredMixin,FormView):
-    template_name = 'creation_form.html'
+    template_name = 'answer_creation_form.html'
     form_class = AnswerForm
     success_message = 'Объект успешно создан!'
     success_url = reverse_lazy('conspect:answ_creation')
@@ -190,52 +166,12 @@ class AnswerCreationView(LoginRequiredMixin,FormView):
         return redirect(self.success_url)
 
 
+class EditConspectView(LoginRequiredMixin, UpdateView):
+    template_name = 'edit_conspect.html'
+    model = ConspectModel
+    fields = ['name', 'answers']
+    success_url = reverse_lazy('conspect:show_details')
 
 
 
-
-
-
-# ---------------- DO NOT FORGET to override this FBV to CBV !!!----------------------
-
-
-def subject_creation_view(request):
-    if request.method == 'POST':
-        form = SubjectForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            message = messages.success(request, f'Предмет {form.cleaned_data.get("name")} успешно создан')
-            return render(request, 'creation_form.html', {'form': form, 'messages':message,})
-    form = SubjectForm(initial={'author': request.user})
-    return render(request, 'creation_form.html', {'form': form})
-
-
-def structure_component_creation_view(request):
-    if request.method == 'POST':
-        form = StructureComponentForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('conspect:detail_lesson')
-    form = StructureComponentForm()
-    return render(request, 'creation_form.html', {'form': form})
-
-
-def answer_creation_view(request):
-    if request.method == 'POST':
-        form = AnswerForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('conspect:detail_lesson')
-    form = AnswerForm()
-    return render(request, 'creation_form.html', {'form': form})
-
-
-
-
-def edit_conspectview(request):
-    id = request.GET.get('id')[-3:-1]
-    print(id)
-    consp = ConspectModel.objects.get(id=id)
-    form = ConspectForm(instance=consp)
-    return render(request, 'edit_conspect.html', {'form': form})
 

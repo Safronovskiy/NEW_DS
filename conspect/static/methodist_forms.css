@@ -1,0 +1,79 @@
+.table__addElem {
+  border-radius: 12px;
+  -webkit-box-shadow: 0px 2px 6px gray;
+          box-shadow: 0px 2px 6px gray;
+}
+
+.row__addElem {
+  border: 1px solid gray;
+}
+
+.row__addElem td {
+  color: black;
+  background-color: #4c85ff80;
+  font-size: 21px;
+}
+
+.row__addElem:nth-child(1) {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.row__addElem:last-child {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.row__addElem:nth-child(1) select {
+  border-radius: 8px;
+  font-size: 18px;
+  outline: none;
+}
+
+.row__addElem:nth-child(2) td {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  text-align: left;
+}
+
+.row__addElem:nth-child(2) td label {
+  margin-bottom: 21px;
+}
+
+.input{
+  border-radius: 12px;
+  padding: 12px;
+  width: 90%;
+  font-size: 21px;
+  outline: none;
+}
+
+.add_input {
+  margin-right: 12px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 12px 21px;
+  font-size: 18px;
+  text-align: center;
+  -webkit-box-shadow: 0 0px 3px black;
+          box-shadow: 0 0px 3px black;
+  cursor: pointer;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+}
+
+.add_input:hover {
+  color: white;
+  background-color: #5e81ff7a;
+}
+
+
+

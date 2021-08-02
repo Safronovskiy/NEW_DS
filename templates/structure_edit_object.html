@@ -1,0 +1,20 @@
+{% extends 'methodist_desktop.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+    <form method="post">
+        {% csrf_token %}
+        <table border="2px" class="table__addElem">
+          <tr class="row__addElem"><td>{{form.subject.label}} : {{form.subject}}</td></tr>
+          <tr class="row__addElem"><td>{{form.name.label}}: {{form.name }}</td></tr>
+            {{form.author}}
+          <tr class="row__addElem"><td><input class="add_input" type="submit" name="" value="Обновить" id="author_id"></td></tr>
+        </table>
+    </form>
+
+{% endblock %}
+

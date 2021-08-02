@@ -1,6 +1,7 @@
 {% extends 'saved_conspects.html' %}
 {% load static %}
 
+
 {% block nav %}
 
 	{% if messages %}
@@ -19,6 +20,7 @@
 			<a href="{% url 'conspect:subj_creation' %}"><input type="button" value="Добавить предмет" id="get_cons2" class="top-btn"></a>
 			<a href="{% url 'conspect:comp_creation' %}"><input type="button" value="Добавить компонент" id="get_cons3" class="top-btn"></a>
 			<a href="{% url 'conspect:answ_creation' %}"><input type="button" value="Добавить вариант" id="get_cons4" class="top-btn"></a>
+			<a href="{% url 'conspect:methodist_desktop' %}"><input type="button" value="Рабочий стол" id="get_cons5" class="top-btn"></a>
 
 			{% if request.user.is_authenticated %}
 			<form action="{% url 'accounts:logout' %}" method="GET">
@@ -34,28 +36,35 @@
 
 
 {% block content %}
-	<div style="display:flex; justify-content:space-around;">
+	<div class="elements_list">
+	<div class="column_wrap">
+		<p>Мои предметы:</p>
+		<ul class="elements_column">
 
-		<ul>
-			<p>Мои предметы:</p>
 			{% for item in my_subjects %}
 				<li><a href="{% url 'conspect:edit_subj' item.pk %}">{{item}}</a></li>
 			{% endfor %}
 		</ul>
+	</div>
+	<div class="column_wrap">
+		<p>Мои структурные компоненты:</p>
+		<ul class="elements_column">
 
-		<ul>
-			<p>Мои структурные компоненты:</p>
 			{% for item in my_components %}
 				<li><a href="{% url 'conspect:edit_comp' item.pk %}">{{item}}</a></li>
 			{% endfor %}
 		</ul>
+	</div>
 
-		<ul>
-			<p>Мои вопросы:</p>
+	<div class="column_wrap">
+		<p>Мои ответы:</p>
+		<ul class="elements_column last">
+
 			{% for item in my_answers %}
-				<li><a href="{% url 'conspect:edit_answ' item.pk %}">{{item}}</a></li>
+				<li><a href="{% url 'conspect:edit_answ' item.pk %}">{{item|slice:":5"}}</a></li>
 			{% endfor %}
 		</ul>
+	</div>
 
 	</div>
 

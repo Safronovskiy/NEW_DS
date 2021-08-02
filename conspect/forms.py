@@ -5,14 +5,14 @@ from .models import *
 
 
 class SubjectForm(forms.ModelForm):
+    name = forms.CharField(label='Название предмета', widget=forms.Textarea(attrs={'class': 'input', 'rows':1}))
 
     class Meta:
         model = SubjectModel
         fields ='__all__'
         widgets = {
-            'author': forms.TextInput(attrs={'type': 'hidden'})
+            'author': forms.TextInput(attrs={'type': 'hidden', 'class': '_input'}),
         }
-
 
 
 class StructureComponentForm(forms.ModelForm):
@@ -21,8 +21,11 @@ class StructureComponentForm(forms.ModelForm):
         model = StructureComponentModel
         fields = '__all__'
         widgets = {
-            'author': forms.HiddenInput()
+            'author': forms.HiddenInput(attrs={'class': '_input'}),
+            'subject': forms.Select(attrs={'class': 'subject_input'}),
+            'name': forms.Textarea(attrs={'class': 'input', 'rows':1}),
         }
+
 
 class AnswerForm(forms.ModelForm):
 
@@ -30,7 +33,9 @@ class AnswerForm(forms.ModelForm):
         model = AnswerModel
         fields = '__all__'
         widgets = {
-            'author': forms.TextInput(attrs={'type': 'hidden'})
+            'author': forms.TextInput(attrs={'type': 'hidden', 'class': 'answer_input'}),
+            'structure_component': forms.Select(attrs={'class': '_input'}),
+            'content': forms.Textarea(attrs={'class': 'input'})
         }
 
 
