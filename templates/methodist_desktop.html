@@ -57,11 +57,11 @@
 	</div>
 
 	<div class="column_wrap">
-		<p>Мои ответы:</p>
+		<p>Мои варианты:</p>
 		<ul class="elements_column last">
 
 			{% for item in my_answers %}
-				<li><a href="{% url 'conspect:edit_answ' item.pk %}">{{item|slice:":5"}}</a></li>
+				<li><a href="{% url 'conspect:edit_answ' item.pk %}">{{item.content|slice:":180"}} ...</a></li>
 			{% endfor %}
 		</ul>
 	</div>

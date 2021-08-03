@@ -255,8 +255,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   border-radius: 12px;
   padding: 21px;
   font-size: 20px;
@@ -266,7 +266,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .about-link {
+  flex: 0 0 33%;
   margin-bottom: 18px;
+  line-height: 210%;
   cursor: pointer;
 }
 
