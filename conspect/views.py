@@ -63,7 +63,9 @@ class DetailConspectView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get(self.pk_url_kwarg)
+        consp = ConspectModel.objects.filter(pk=pk).first()
         answers = AnswerModel.objects.filter(conspects=pk)
+        context['consp'] = consp
         context['answers'] = answers
         context['components'] = StructureComponentModel.objects.filter(answers__in=answers).distinct()
         return context

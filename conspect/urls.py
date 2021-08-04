@@ -21,6 +21,6 @@ urlpatterns = [
     path('edit_subject/<int:pk>/', EditSubjectView.as_view(), name='edit_subj'),
     path('edit_component/<int:pk>/', EditComponentView.as_view(), name='edit_comp'),
     path('edit_answer/<int:pk>/', EditAnswerView.as_view(), name='edit_answ'),
-    path('edit_conspect/<int:pk>', EditConspectView.as_view(), name='show_details'),
+    path('edit_conspect/<int:pk>', EditConspectView.as_view(), name='edit_conspect'),
 
 ]

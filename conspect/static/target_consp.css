@@ -128,9 +128,16 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	padding: 0 10%;
 	max-width: 100%;
 }
+
+.answers_question{
+	margin-bottom: 30px;
+	font-size: 21px;
+}
+
 .answer{
 	margin-bottom: 15px;
 	font-size: 21px;
+	list-style-type: order;
 }
 
 
@@ -184,6 +191,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	.answers{
 		margin: 0;
 		max-width: 100%;
+		list-style-type: order;
 	}
 	.container{
 		padding-top: 60px;
@@ -193,3 +201,4 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 		display: none;
 	}
 }
+
